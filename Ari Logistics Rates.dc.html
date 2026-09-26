@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  input[type=range] { -webkit-appearance: none; appearance: none; background: transparent; }
+  input[type=range]::-webkit-slider-runnable-track { height: 6px; border-radius: 999px; background: rgba(255,255,255,.16); }
+  input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 22px; height: 22px; margin-top: -8px; border-radius: 50%; background: #fff; border: 4px solid #007BFF; box-shadow: 0 4px 14px rgba(0,123,255,.6); cursor: pointer; }
+  input[type=range]::-moz-range-track { height: 6px; border-radius: 999px; background: rgba(255,255,255,.16); }
+  input[type=range]::-moz-range-thumb { width: 16px; height: 16px; border-radius: 50%; background: #fff; border: 4px solid #007BFF; cursor: pointer; }
+  ::selection { background: #007BFF; color: #fff; }
+</style>
+</helmet>
+
+<div style="font-family: 'Inter', system-ui, sans-serif; color: #0A0E17; background: #ffffff; min-height: 100vh;">
+
+  <!-- NAV -->
+  <nav style="position: sticky; top: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 16px clamp(20px,5vw,40px); background: rgba(7,11,20,.9); backdrop-filter: blur(18px); border-bottom: 1px solid rgba(255,255,255,.08); flex-wrap: wrap; row-gap: 10px;">
+    <a href="index.html" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+      <img src="assets/ari-light-lockup.png" alt="Ari Logistics" style="height: 42px; width: auto; display: block;"/>
+    </a>
+    <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: flex-end;">
+      <a href="index.html" style="color: rgba(255,255,255,.72); text-decoration: none; font-size: 14px; font-weight: 500; padding: 10px 16px;" style-hover="{{ navHover }}">← Back to home</a>
+      <a href="https://ep.shiptojm.com" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 14px; border-radius: 12px;" style-hover="{{ navHover }}">Login</a>
+      <a href="https://ep.shiptojm.com/register" style="background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; border: none; padding: 11px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 8px 22px rgba(0,123,255,.4); text-decoration: none; display: inline-block;" style-hover="{{ ctaHover }}">Get Started</a>
+    </div>
+  </nav>
+
+  <!-- CALCULATOR HERO -->
+  <section style="position: relative; background: radial-gradient(120% 90% at 78% 0%, #0d2036 0%, #070B14 58%, #05070d 100%); overflow: hidden; padding: clamp(56px,10vw,84px) clamp(20px,5vw,40px) clamp(60px,10vw,100px);">
+    <img src="assets/rates-bg.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .5;"/>
+    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,7,13,.95) 0%, rgba(5,7,13,.74) 44%, rgba(5,7,13,.52) 100%);"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,11,20,.55), transparent 22%, transparent 68%, rgba(5,7,13,.85));"></div>
+    <div style="position: absolute; inset: 0; background-image: radial-gradient(rgba(255,255,255,.06) 1px, transparent 1px); background-size: 24px 24px; opacity: .5;"></div>
+    <div style="position: absolute; top: -120px; right: -80px; width: 460px; height: 460px; border-radius: 50%; background: radial-gradient(circle, rgba(0,123,255,.35), transparent 70%); filter: blur(20px);"></div>
+
+    <div style="position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: clamp(32px,6vw,56px); align-items: center;">
+      <div>
+        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: rgba(0,123,255,.12); border: 1px solid rgba(59,155,255,.3); margin-bottom: 24px;">
+          <span style="color: #9fc7ff; font-size: 13px; font-weight: 500;">Air freight · USA & China → Jamaica</span>
+        </div>
+        <h1 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(32px,6vw,54px); line-height: 1.06; letter-spacing: -.03em; color: #fff; margin: 0 0 20px;">Shipping rates,<br>no surprises.</h1>
+        <p style="font-size: 18px; line-height: 1.6; color: rgba(255,255,255,.66); max-width: 460px; margin: 0 0 32px;">Transparent per-pound pricing. Slide to your package weight and see the exact cost — GCT included.</p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <div style="padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 24px; color: #fff;">$700</div>
+            <div style="color: rgba(255,255,255,.5); font-size: 13px; margin-top: 2px;">First pound</div>
+          </div>
+          <div style="padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 24px; color: #fff;">$300</div>
+            <div style="color: rgba(255,255,255,.5); font-size: 13px; margin-top: 2px;">Each extra pound</div>
+          </div>
+          <div style="padding: 16px 20px; border-radius: 16px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.1);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 24px; color: #fff;">15%</div>
+            <div style="color: rgba(255,255,255,.5); font-size: 13px; margin-top: 2px;">GCT</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- calculator card -->
+      <div style="background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(18px); border-radius: 26px; padding: 34px; box-shadow: 0 30px 70px rgba(0,0,0,.45);">
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px;">
+          <span style="color: rgba(255,255,255,.7); font-size: 14px; font-weight: 500;">Package weight</span>
+          <div style="display: flex; align-items: center; gap: 14px;">
+            <button onClick="{{ dec }}" style="width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; font-family: inherit;" style-hover="{{ stepHover }}">−</button>
+            <div style="min-width: 96px; text-align: center; font-family: 'Space Grotesk'; font-weight: 700; font-size: 26px; color: #fff;">{{ weightLabel }}</div>
+            <button onClick="{{ inc }}" style="width: 34px; height: 34px; border-radius: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); color: #fff; font-size: 20px; cursor: pointer; display: grid; place-items: center; font-family: inherit;" style-hover="{{ stepHover }}">+</button>
+          </div>
+        </div>
+
+        <input type="range" min="1" max="100" step="1" value="{{ weight }}" onChange="{{ onSlide }}" onInput="{{ onSlide }}" style="width: 100%; margin: 6px 0 4px;"/>
+        <div style="display: flex; justify-content: space-between; color: rgba(255,255,255,.35); font-size: 11.5px; margin-bottom: 24px;">
+          <span>1 lb</span><span>100 lbs</span>
+        </div>
+
+        <div onClick="{{ toggle }}" style="display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-radius: 14px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.1); cursor: pointer; margin-bottom: 24px;">
+          <div>
+            <div style="color: #fff; font-size: 14.5px; font-weight: 500;">Include GCT</div>
+            <div style="color: rgba(255,255,255,.45); font-size: 12.5px; margin-top: 1px;">15% General Consumption Tax</div>
+          </div>
+          <div style="width: 46px; height: 26px; border-radius: 999px; background: {{ trackBg }}; position: relative; transition: background .25s; flex-shrink: 0;">
+            <div style="position: absolute; top: 3px; left: 3px; width: 20px; height: 20px; border-radius: 50%; background: #fff; transition: transform .25s; transform: {{ knobShift }};"></div>
+          </div>
+        </div>
+
+        <div style="padding: 22px; border-radius: 18px; background: linear-gradient(135deg, rgba(0,123,255,.22), rgba(0,123,255,.08)); border: 1px solid rgba(90,169,255,.3);">
+          <div style="color: rgba(255,255,255,.62); font-size: 13px; margin-bottom: 6px;">Estimated shipping cost</div>
+          <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 50px; line-height: 1; letter-spacing: -.02em; color: #fff;">{{ price }}</div>
+          <div style="color: #9fc7ff; font-size: 13px; margin-top: 8px;">{{ priceLabel }}</div>
+          <div style="height: 1px; background: rgba(255,255,255,.12); margin: 16px 0;"></div>
+          <div style="display: flex; justify-content: space-between; font-size: 13.5px; padding: 3px 0;"><span style="color: rgba(255,255,255,.55);">Base ({{ weightLabel }})</span><span style="color: #fff;">{{ base }}</span></div>
+          <div style="display: flex; justify-content: space-between; font-size: 13.5px; padding: 3px 0;"><span style="color: rgba(255,255,255,.55);">GCT (15%)</span><span style="color: #fff;">{{ gctAmt }}</span></div>
+          <div style="display: flex; justify-content: space-between; font-size: 13.5px; padding: 3px 0; font-weight: 600;"><span style="color: rgba(255,255,255,.8);">Total with GCT</span><span style="color: #fff;">{{ total }}</span></div>
+        </div>
+
+        <a href="https://ep.shiptojm.com/register" style="display: block; text-align: center; width: 100%; margin-top: 20px; background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; border: none; padding: 15px; border-radius: 14px; font-size: 15.5px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 14px 30px rgba(0,123,255,.45); text-decoration: none;" style-hover="{{ ctaHover }}">Ship this package</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FULL RATE TABLE -->
+  <section style="background: #F8F9FA; padding: clamp(56px,10vw,96px) clamp(20px,5vw,40px);">
+    <div style="max-width: 760px; margin: 0 auto;">
+      <div style="text-align: center; margin-bottom: 44px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">Full rate card</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(26px,5vw,40px); letter-spacing: -.03em; margin: 0 0 12px;">Every pound, laid out</h2>
+        <p style="color: #5b6472; font-size: 16px; margin: 0;">Tap any row to load it into the calculator above.</p>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #e8ebef; border-radius: 24px; overflow: hidden; box-shadow: 0 20px 50px rgba(15,30,55,.06);">
+        <div style="display: grid; grid-template-columns: 1fr 1.4fr 1.4fr; padding: 16px clamp(14px,4vw,26px); background: #0A0E17;">
+          <div style="color: rgba(255,255,255,.6); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase;">Weight</div>
+          <div style="color: rgba(255,255,255,.6); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-align: right;">Cost</div>
+          <div style="color: rgba(255,255,255,.6); font-size: 13px; font-weight: 600; letter-spacing: .04em; text-transform: uppercase; text-align: right;">Cost + GCT</div>
+        </div>
+        <sc-for list="{{ rows }}" as="r" hint-placeholder-count="10">
+          <div onClick="{{ r.sel }}" style="display: grid; grid-template-columns: 1fr 1.4fr 1.4fr; padding: 16px clamp(14px,4vw,26px); cursor: pointer; border-top: 1px solid #eef0f3; background: {{ r.bg }}; transition: background .2s;" style-hover="{{ rowHover }}">
+            <div style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 16px; color: {{ r.strong }};">{{ r.lbLabel }}</div>
+            <div style="text-align: right; font-size: 15.5px; color: {{ r.muted }};">{{ r.cost }}</div>
+            <div style="text-align: right; font-family: 'Space Grotesk'; font-weight: 600; font-size: 15.5px; color: {{ r.strong }};">{{ r.costG }}</div>
+          </div>
+        </sc-for>
+      </div>
+      <p style="text-align: center; color: #8a93a0; font-size: 13.5px; margin-top: 22px;">Rates shown in JMD. Beyond 10 lbs, add $300 per pound. GCT calculated at 15%.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #070B14; padding: clamp(24px,6vw,40px); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;">
+    <a href="index.html" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+      <img src="assets/ari-light-lockup.png" alt="Ari Logistics" style="height: 36px; width: auto;"/>
+    </a>
+    <span style="color: rgba(255,255,255,.4); font-size: 13px;">© {{ year }} Ari Logistics. Rates subject to change.</span>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1200,&quot;height&quot;:860}}">
+class Component extends DCLogic {
+  state = { weight: 3, gct: true };
+
+  renderVals() {
+    const fmt = (n) => '$' + n.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const w = this.state.weight;
+    const base = 700 + (w - 1) * 300;
+    const gctAmt = base * 0.15;
+    const total = base + gctAmt;
+    const price = this.state.gct ? total : base;
+
+    const rows = Array.from({ length: 10 }, (_, i) => {
+      const lb = i + 1;
+      const c = 700 + (lb - 1) * 300;
+      const on = lb === w;
+      return {
+        lb,
+        lbLabel: lb + (lb === 1 ? ' lb' : ' lbs'),
+        cost: fmt(c),
+        costG: fmt(c * 1.15),
+        bg: on ? 'rgba(0,123,255,.09)' : '#ffffff',
+        strong: on ? '#007BFF' : '#0A0E17',
+        muted: on ? '#3b82d6' : '#5b6472',
+        sel: () => this.setState({ weight: lb }),
+      };
+    });
+
+    return {
+      weight: w,
+      weightLabel: w + (w === 1 ? ' lb' : ' lbs'),
+      gct: this.state.gct,
+      base: fmt(base),
+      gctAmt: fmt(gctAmt),
+      total: fmt(total),
+      price: fmt(price),
+      priceLabel: this.state.gct ? 'GCT included (15%)' : 'before GCT',
+      trackBg: this.state.gct ? '#007BFF' : 'rgba(255,255,255,.2)',
+      knobShift: this.state.gct ? 'translateX(20px)' : 'translateX(0)',
+      inc: () => this.setState(s => ({ weight: Math.min(100, s.weight + 1) })),
+      dec: () => this.setState(s => ({ weight: Math.max(1, s.weight - 1) })),
+      onSlide: (e) => this.setState({ weight: parseInt(e.target.value, 10) }),
+      toggle: () => this.setState(s => ({ gct: !s.gct })),
+      rows,
+      navHover: { color: '#fff' },
+      ctaHover: { transform: 'translateY(-2px)', boxShadow: '0 18px 40px rgba(0,123,255,.55)' },
+      stepHover: { background: 'rgba(0,123,255,.3)' },
+      rowHover: { background: 'rgba(0,123,255,.05)' },
+      year: new Date().getFullYear(),
+    };
+  }
+}
+</script>
+</body>
+</html>

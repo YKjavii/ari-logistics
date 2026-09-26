@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; }
+  [data-reveal] { opacity: 0; transform: translateY(28px); transition: opacity .9s cubic-bezier(.16,.84,.44,1), transform .9s cubic-bezier(.16,.84,.44,1); }
+  [data-reveal].in { opacity: 1; transform: none; }
+  @keyframes floatY { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+  @keyframes floatY2 { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-22px); } }
+  @keyframes dashmove { to { stroke-dashoffset: -240; } }
+  @keyframes pulseRing { 0% { transform: scale(.6); opacity: .7; } 100% { transform: scale(2.4); opacity: 0; } }
+  @keyframes sheen { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+  ::selection { background: #007BFF; color: #fff; }
+  image-slot { display: block; width: 100%; height: 100%; }
+</style>
+<script src="assets/image-slot.js"></script>
+</helmet>
+
+<div ref="{{ rootRef }}" style="font-family: 'Inter', system-ui, sans-serif; color: #0A0E17; background: #ffffff; overflow-x: clip;">
+
+  <!-- NAV -->
+  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 50; display: flex; align-items: center; justify-content: space-between; padding: 16px clamp(20px,5vw,40px); backdrop-filter: blur(18px); background: rgba(7,11,20,.75); border-bottom: 1px solid rgba(255,255,255,.08);">
+    <a href="index.html" style="display: flex; align-items: center; gap: 11px; text-decoration: none;">
+      <img src="assets/ari-light-lockup.png" alt="Ari Logistics" style="height: 42px; width: auto; display: block;"/>
+    </a>
+    <div style="display: {{ deskDisplay }}; align-items: center; gap: 34px;">
+      <a href="#services" style="color: rgba(255,255,255,.72); text-decoration: none; font-size: 14.5px; font-weight: 500;" style-hover="{{ navHover }}">Services</a>
+      <a href="#how" style="color: rgba(255,255,255,.72); text-decoration: none; font-size: 14.5px; font-weight: 500;" style-hover="{{ navHover }}">How it works</a>
+      <a href="#network" style="color: rgba(255,255,255,.72); text-decoration: none; font-size: 14.5px; font-weight: 500;" style-hover="{{ navHover }}">Network</a>
+      <a href="Ari%20Logistics%20Rates.dc.html" style="color: rgba(255,255,255,.72); text-decoration: none; font-size: 14.5px; font-weight: 500;" style-hover="{{ navHover }}">Rates</a>
+    </div>
+    <div style="display: {{ deskDisplay }}; align-items: center; gap: 12px;">
+      <a href="Ari%20Logistics%20Tracking.dc.html" style="background: transparent; color: #fff; border: 1px solid rgba(255,255,255,.18); padding: 10px 18px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; text-decoration: none; display: inline-block;" style-hover="{{ navBtnHover }}">Track Package</a>
+      <a href="https://ep.shiptojm.com" style="color: #fff; text-decoration: none; font-size: 14px; font-weight: 600; padding: 10px 14px; border-radius: 12px;" style-hover="{{ navBtnHover }}">Login</a>
+      <a href="https://ep.shiptojm.com/register" style="background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; border: none; padding: 11px 20px; border-radius: 12px; font-size: 14px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 8px 22px rgba(0,123,255,.4); text-decoration: none; display: inline-block;" style-hover="{{ ctaHover }}">Get Started</a>
+    </div>
+    <button onClick="{{ toggleNav }}" aria-label="Menu" style="display: {{ mobDisplay }}; width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.16); align-items: center; justify-content: center; cursor: pointer; padding: 0;">{{ navIcon }}</button>
+  </nav>
+  <sc-if value="{{ navOpen }}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; top: 64px; left: 0; right: 0; z-index: 49; background: rgba(7,11,20,.98); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,.1); padding: 10px clamp(20px,5vw,40px) 24px; display: flex; flex-direction: column;">
+      <a href="#services" onClick="{{ closeNav }}" style="color: #fff; text-decoration: none; font-size: 16px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08);">Services</a>
+      <a href="#how" onClick="{{ closeNav }}" style="color: #fff; text-decoration: none; font-size: 16px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08);">How it works</a>
+      <a href="#network" onClick="{{ closeNav }}" style="color: #fff; text-decoration: none; font-size: 16px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08);">Network</a>
+      <a href="Ari%20Logistics%20Rates.dc.html" style="color: #fff; text-decoration: none; font-size: 16px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08);">Rates</a>
+      <a href="Ari%20Logistics%20Tracking.dc.html" style="color: #fff; text-decoration: none; font-size: 16px; font-weight: 500; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08);">Track Package</a>
+      <a href="https://ep.shiptojm.com" style="color: rgba(255,255,255,.72); text-decoration: none; font-size: 16px; font-weight: 500; padding: 14px 0;">Login</a>
+      <a href="https://ep.shiptojm.com/register" style="margin-top: 8px; background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; text-align: center; padding: 15px; border-radius: 12px; font-size: 15.5px; font-weight: 600; text-decoration: none;">Get Started</a>
+    </div>
+  </sc-if>
+
+  <!-- HERO -->
+  <header style="position: relative; min-height: 100vh; background: radial-gradient(120% 90% at 70% 10%, #0d2036 0%, #070B14 55%, #05070d 100%); overflow: hidden; display: flex; align-items: center;">
+    <canvas ref="{{ globeRef }}" style="position: absolute; inset: 0; width: 100%; height: 100%; display: block;"></canvas>
+    <div style="position: absolute; inset: 0; background: radial-gradient(60% 50% at 50% 45%, transparent 40%, rgba(5,7,13,.5) 100%); pointer-events: none;"></div>
+
+    <div style="position: relative; z-index: 5; max-width: 1240px; margin: 0 auto; padding: clamp(110px,20vw,120px) clamp(20px,5vw,40px) 60px; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; align-items: center;">
+      <div ref="{{ heroTextRef }}">
+        <div style="display: inline-flex; align-items: center; gap: 8px; padding: 7px 14px; border-radius: 999px; background: rgba(0,123,255,.12); border: 1px solid rgba(59,155,255,.3); margin-bottom: 26px;">
+          <span style="width: 7px; height: 7px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 10px #35d07f;"></span>
+          <span style="color: #9fc7ff; font-size: 13px; font-weight: 500; letter-spacing: .01em;">USA · China → Jamaica · Live network</span>
+        </div>
+        <h1 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(36px,6vw,62px); line-height: 1.05; letter-spacing: -.03em; color: #fff; margin: 0 0 22px;">Shipping Made Simple.<br><span style="background: linear-gradient(100deg,#8fc2ff,#007BFF 60%,#5aa9ff); -webkit-background-clip: text; background-clip: text; color: transparent;">Delivered with Confidence.</span></h1>
+        <p style="font-size: 18.5px; line-height: 1.6; color: rgba(255,255,255,.66); max-width: 520px; margin: 0 0 34px;">Fast, secure, and affordable shipping from the USA and China to Jamaica. Whether you're importing for business or personal use, we make international shipping effortless.</p>
+        <div style="display: flex; gap: 14px; flex-wrap: wrap;">
+          <a href="Ari%20Logistics%20Tracking.dc.html" data-mag="1" style="background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; border: none; padding: 16px 28px; border-radius: 14px; font-size: 15.5px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 14px 34px rgba(0,123,255,.45); display: inline-flex; align-items: center; gap: 9px; text-decoration: none;" style-hover="{{ ctaHover }}">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M3 12h12m0 0l-4-4m4 4l-4 4M15 5h4a2 2 0 012 2v10a2 2 0 01-2 2h-4" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            Track Package
+          </a>
+          <a href="https://ep.shiptojm.com/register" data-mag="1" style="background: rgba(255,255,255,.06); color: #fff; border: 1px solid rgba(255,255,255,.18); padding: 16px 28px; border-radius: 14px; font-size: 15.5px; font-weight: 600; cursor: pointer; font-family: inherit; backdrop-filter: blur(10px); text-decoration: none; display: inline-block;" style-hover="{{ ghostHover }}">Get Started</a>
+        </div>
+      </div>
+
+      <!-- floating glass cards -->
+      <div style="position: relative; height: clamp(320px, 60vw, 460px);" ref="{{ cardsRef }}">
+        <sc-for list="{{ heroCards }}" as="c" hint-placeholder-count="6">
+          <div data-depth="{{ c.depth }}" style="position: absolute; left: {{ c.x }}; top: {{ c.y }}; width: min(186px, 40vw); padding: 16px; border-radius: 20px; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(16px); box-shadow: 0 20px 50px rgba(0,0,0,.35); animation: {{ c.anim }} {{ c.dur }} ease-in-out infinite;">
+            <div style="width: 40px; height: 40px; border-radius: 12px; background: {{ c.tint }}; display: grid; place-items: center; margin-bottom: 12px;">{{ c.icon }}</div>
+            <div style="color: #fff; font-weight: 600; font-size: 15px; letter-spacing: -.01em;">{{ c.title }}</div>
+            <div style="color: rgba(255,255,255,.55); font-size: 12.5px; margin-top: 3px;">{{ c.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+
+    <div style="position: absolute; bottom: 26px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,.4); font-size: 12px; letter-spacing: .18em; z-index: 5;">SCROLL</div>
+  </header>
+
+  <!-- STATS -->
+  <section style="background: #070B14; padding: clamp(36px,6vw,50px) clamp(20px,5vw,40px); border-top: 1px solid rgba(255,255,255,.06);">
+    <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(140px,1fr)); gap: clamp(16px,4vw,30px);" ref="{{ statsRef }}">
+      <sc-for list="{{ stats }}" as="s" hint-placeholder-count="4">
+        <div data-reveal style="text-align: center;">
+          <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(30px,6vw,46px); letter-spacing: -.03em; background: linear-gradient(120deg,#fff,#7db8ff); -webkit-background-clip: text; background-clip: text; color: transparent;"><span data-count="{{ s.value }}" data-dec="{{ s.dec }}">{{ s.display }}</span>{{ s.suffix }}</div>
+          <div style="color: rgba(255,255,255,.55); font-size: 14.5px; margin-top: 6px;">{{ s.label }}</div>
+        </div>
+      </sc-for>
+    </div>
+  </section>
+
+  <!-- FEATURE BAND -->
+  <section style="position: relative; min-height: 480px; overflow: hidden; background: #05070d; padding: clamp(70px,12vw,110px) 0; display: flex; align-items: center;">
+    <img src="assets/port-aerial.jpg" alt="Aerial view of a container port terminal" data-parallax="0.14" style="position: absolute; top: -12%; left: 0; width: 100%; height: 124%; object-fit: cover; will-change: transform;"/>
+    <div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(5,7,13,.93) 0%, rgba(5,7,13,.62) 46%, rgba(5,7,13,.2) 100%);"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(7,11,20,.85), transparent 20%, transparent 80%, rgba(7,11,20,.95));"></div>
+    <div style="position: relative; z-index: 2; max-width: 1180px; margin: 0 auto; width: 100%; display: flex; flex-direction: column; justify-content: center; padding: 0 clamp(20px,5vw,40px);">
+      <div data-reveal style="max-width: 640px;">
+        <div style="color: #5aa9ff; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 16px;">The lane, end to end</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,46px); line-height: 1.08; letter-spacing: -.03em; color: #fff; margin: 0 0 18px;">Every container accounted for, from port to porch.</h2>
+        <p style="color: rgba(255,255,255,.72); font-size: 17px; line-height: 1.6; margin: 0 0 32px; max-width: 500px;">Live visibility across ocean and air freight means your cargo is never a mystery. We track it end to end so you never have to guess where your shipment is.</p>
+        <div style="display: flex; gap: clamp(20px,6vw,44px); flex-wrap: wrap;">
+          <div><div style="font-family:'Space Grotesk'; font-weight:700; font-size:clamp(24px,4vw,34px); color:#fff;">40k+</div><div style="color:rgba(255,255,255,.55); font-size:13.5px; margin-top:2px;">Containers moved</div></div>
+          <div><div style="font-family:'Space Grotesk'; font-weight:700; font-size:clamp(24px,4vw,34px); color:#fff;">2</div><div style="color:rgba(255,255,255,.55); font-size:13.5px; margin-top:2px;">Continents sourced</div></div>
+          <div><div style="font-family:'Space Grotesk'; font-weight:700; font-size:clamp(24px,4vw,34px); color:#fff;">1</div><div style="color:rgba(255,255,255,.55); font-size:13.5px; margin-top:2px;">Seamless platform</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" style="background: #F8F9FA; padding: clamp(60px,10vw,110px) clamp(20px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-reveal style="text-align: center; margin-bottom: 56px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">What we do</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; margin: 0 0 14px;">Every route, one platform</h2>
+        <p style="color: #5b6472; font-size: 17px; max-width: 560px; margin: 0 auto; line-height: 1.6;">From air freight to full container loads, we handle the logistics so you can focus on growth.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px,1fr)); gap: 20px;">
+        <sc-for list="{{ services }}" as="sv" hint-placeholder-count="8">
+          <div data-reveal data-tilt style="background: #fff; border: 1px solid #e8ebef; border-radius: 22px; padding: 26px; transition: transform .35s cubic-bezier(.16,.84,.44,1), box-shadow .35s, border-color .35s; cursor: pointer;" style-hover="{{ serviceHover }}">
+            <div style="width: 52px; height: 52px; border-radius: 15px; background: linear-gradient(135deg,#eaf4ff,#d3e8ff); display: grid; place-items: center; margin-bottom: 18px; color: #007BFF;">{{ sv.icon }}</div>
+            <h3 style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 18.5px; margin: 0 0 8px; letter-spacing: -.01em;">{{ sv.title }}</h3>
+            <p style="color: #6b7280; font-size: 14px; line-height: 1.55; margin: 0;">{{ sv.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section id="how" style="background: #fff; padding: clamp(60px,10vw,110px) clamp(20px,5vw,40px);">
+    <div style="max-width: 1080px; margin: 0 auto;">
+      <div data-reveal style="text-align: center; margin-bottom: 60px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">How it works</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; margin: 0;">From cart to doorstep in four steps</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px,1fr)); gap: 18px; position: relative;">
+        <div style="display: {{ connectorDisplay }}; position: absolute; top: 34px; left: 12%; right: 12%; height: 2px; background: linear-gradient(90deg,#d3e8ff,#007BFF,#d3e8ff); opacity: .6;"></div>
+        <sc-for list="{{ steps }}" as="st" hint-placeholder-count="4">
+          <div data-reveal style="position: relative; text-align: center; padding: 0 8px;">
+            <div style="width: 68px; height: 68px; border-radius: 20px; background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; display: grid; place-items: center; margin: 0 auto 20px; font-family: 'Space Grotesk'; font-weight: 700; font-size: 22px; box-shadow: 0 14px 30px rgba(0,123,255,.35); position: relative; z-index: 2;">{{ st.n }}</div>
+            <h3 style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 17px; margin: 0 0 8px;">{{ st.title }}</h3>
+            <p style="color: #6b7280; font-size: 13.5px; line-height: 1.5; margin: 0;">{{ st.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- NETWORK MAP -->
+  <section id="network" style="background: radial-gradient(120% 100% at 50% 0%, #0d2036, #070B14 60%); padding: clamp(60px,10vw,110px) clamp(20px,5vw,40px); position: relative; overflow: hidden;">
+    <div style="max-width: 1180px; margin: 0 auto; position: relative;">
+      <div data-reveal style="text-align: center; margin-bottom: 48px;">
+        <div style="color: #5aa9ff; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">Global network</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; color: #fff; margin: 0 0 12px;">Three hubs. One seamless lane.</h2>
+        <p style="color: rgba(255,255,255,.55); font-size: 16px;">Hover a hub to see live routing details.</p>
+      </div>
+
+      <div data-reveal style="position: relative; height: clamp(300px, 70vw, 440px); border-radius: 28px; background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.08); overflow: hidden; background-image: radial-gradient(rgba(255,255,255,.12) 1px, transparent 1px); background-size: 22px 22px;">
+        <svg viewBox="0 0 1100 440" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%;">
+          <defs>
+            <linearGradient id="route" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#007BFF" stop-opacity="0"/><stop offset="0.5" stop-color="#5aa9ff"/><stop offset="1" stop-color="#007BFF" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="land" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#5aa9ff" stop-opacity="0.16"/><stop offset="1" stop-color="#0d2036" stop-opacity="0.05"/>
+            </linearGradient>
+            <filter id="cglow" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="7"/></filter>
+          </defs>
+          <!-- country silhouettes: seamless map backdrop -->
+          <g opacity="0.9">
+            <path d="M72,112 L110,104 L150,100 L200,97 L245,95 L268,92 L280,86 L286,96 L274,104 L280,116 L292,132 L286,146 L300,152 L296,172 L288,156 L276,150 L256,150 L232,156 L210,150 L196,150 L190,174 L176,150 L150,152 L120,150 L96,152 L84,140 L78,124 Z" fill="#1d3a5c" opacity="0.5" filter="url(#cglow)"/>
+            <path d="M72,112 L110,104 L150,100 L200,97 L245,95 L268,92 L280,86 L286,96 L274,104 L280,116 L292,132 L286,146 L300,152 L296,172 L288,156 L276,150 L256,150 L232,156 L210,150 L196,150 L190,174 L176,150 L150,152 L120,150 L96,152 L84,140 L78,124 Z" fill="url(#land)" stroke="#5aa9ff" stroke-width="1" stroke-opacity="0.32"/>
+            <path d="M762,158 L782,142 L802,148 L824,132 L852,124 L868,140 L884,126 L908,120 L936,116 L958,124 L978,112 L990,126 L976,142 L992,154 L1002,170 L986,182 L998,196 L980,208 L958,204 L936,216 L912,212 L896,224 L886,208 L866,200 L846,186 L830,192 L816,178 L802,170 L790,160 Z" fill="#1d3a5c" opacity="0.5" filter="url(#cglow)"/>
+            <path d="M762,158 L782,142 L802,148 L824,132 L852,124 L868,140 L884,126 L908,120 L936,116 L958,124 L978,112 L990,126 L976,142 L992,154 L1002,170 L986,182 L998,196 L980,208 L958,204 L936,216 L912,212 L896,224 L886,208 L866,200 L846,186 L830,192 L816,178 L802,170 L790,160 Z" fill="url(#land)" stroke="#5aa9ff" stroke-width="1" stroke-opacity="0.32"/>
+          </g>
+          <path d="M180,150 Q430,20 560,240" fill="none" stroke="#2a4a6e" stroke-width="1.5"/>
+          <path d="M180,150 Q430,20 560,240" fill="none" stroke="url(#route)" stroke-width="2.5" stroke-dasharray="14 226" style="animation: dashmove 3s linear infinite;"/>
+          <path d="M900,180 Q720,40 560,240" fill="none" stroke="#2a4a6e" stroke-width="1.5"/>
+          <path d="M900,180 Q720,40 560,240" fill="none" stroke="url(#route)" stroke-width="2.5" stroke-dasharray="14 226" style="animation: dashmove 3.6s linear infinite;"/>
+        </svg>
+        <sc-for list="{{ hubs }}" as="h" hint-placeholder-count="3">
+          <div onMouseEnter="{{ h.enter }}" onMouseLeave="{{ setNull }}" style="position: absolute; left: {{ h.x }}; top: {{ h.y }}; transform: translate(-50%,-50%); cursor: pointer; z-index: 4;">
+            <div style="position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin: -13px 0 0 -13px; border-radius: 50%; border: 2px solid #5aa9ff; animation: pulseRing 2.4s ease-out infinite;"></div>
+            <div style="width: 18px; height: 18px; border-radius: 50%; background: #007BFF; border: 3px solid #fff; box-shadow: 0 0 20px rgba(0,123,255,.9); position: relative; z-index: 2;"></div>
+            <div style="position: absolute; top: 26px; left: 50%; transform: translateX(-50%); white-space: nowrap; color: #fff; font-weight: 600; font-size: 14px; font-family: 'Space Grotesk';">{{ h.name }}</div>
+          </div>
+        </sc-for>
+
+        <sc-if value="{{ activeHub }}" hint-placeholder-val="{{ false }}">
+          <div style="position: absolute; left: {{ activeHub.px }}; top: {{ activeHub.py }}; transform: translate(-50%, calc(-100% - 44px)); width: min(230px, 68vw); padding: 16px; border-radius: 18px; background: rgba(13,24,40,.92); border: 1px solid rgba(90,169,255,.4); backdrop-filter: blur(14px); box-shadow: 0 24px 50px rgba(0,0,0,.5); z-index: 6; pointer-events: none;">
+            <div style="color: #fff; font-family: 'Space Grotesk'; font-weight: 700; font-size: 17px; margin-bottom: 10px;">{{ activeHub.name }}</div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.08);"><span style="color: rgba(255,255,255,.5);">Warehouse</span><span style="color: #fff;">{{ activeHub.wh }}</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,.08);"><span style="color: rgba(255,255,255,.5);">Est. time</span><span style="color: #fff;">{{ activeHub.time }}</span></div>
+            <div style="display: flex; justify-content: space-between; font-size: 13px; padding: 4px 0;"><span style="color: rgba(255,255,255,.5);">Avg speed</span><span style="color: #5ad08f;">{{ activeHub.speed }}</span></div>
+          </div>
+        </sc-if>
+      </div>
+    </div>
+  </section>
+
+  <!-- OPERATIONS GALLERY -->
+  <section style="background: #fff; padding: clamp(60px,10vw,100px) clamp(20px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-reveal style="text-align: center; margin-bottom: 46px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">Inside the operation</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; margin: 0;">Real hubs. Real hands on your freight.</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 18px;">
+        <div data-reveal style="position: relative; border-radius: 24px; overflow: hidden; height: clamp(220px, 30vw, 400px);">
+          <img src="assets/port-aerial.jpg" alt="Container port from above" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 52%, rgba(5,7,13,.82));"></div>
+          <div style="position:absolute; left:22px; bottom:20px; color:#fff;"><div style="font-family:'Space Grotesk'; font-weight:700; font-size:20px;">Port operations</div><div style="color:rgba(255,255,255,.72); font-size:13px; margin-top:2px;">Miami · Shenzhen terminals</div></div>
+        </div>
+        <div data-reveal style="position: relative; border-radius: 24px; overflow: hidden; height: clamp(220px, 30vw, 400px);">
+          <img src="assets/warehouse.jpg" alt="Warehouse aisle with staff and inventory" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 52%, rgba(5,7,13,.82));"></div>
+          <div style="position:absolute; left:22px; bottom:20px; right:20px; color:#fff;"><div style="font-family:'Space Grotesk'; font-weight:700; font-size:20px;">Warehousing</div><div style="color:rgba(255,255,255,.72); font-size:13px; margin-top:2px;">Receive, inspect & consolidate</div></div>
+        </div>
+        <div data-reveal style="position: relative; border-radius: 24px; overflow: hidden; height: clamp(220px, 30vw, 400px);">
+          <img src="assets/delivery-handoff.jpg" alt="Customer receiving a package at their door" style="width:100%; height:100%; object-fit:cover; display:block;"/>
+          <div style="position:absolute; inset:0; background:linear-gradient(180deg,transparent 52%, rgba(5,7,13,.82));"></div>
+          <div style="position:absolute; left:22px; bottom:20px; right:20px; color:#fff;"><div style="font-family:'Space Grotesk'; font-weight:700; font-size:20px;">Last-mile delivery</div><div style="color:rgba(255,255,255,.72); font-size:13px; margin-top:2px;">To your door in Jamaica</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section style="background: #F8F9FA; padding: clamp(60px,10vw,110px) clamp(20px,5vw,40px);">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-reveal style="text-align: center; margin-bottom: 56px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">Why Ari Logistics</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; margin: 0;">Built for people who hate shipping surprises</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 20px;">
+        <sc-for list="{{ features }}" as="f" hint-placeholder-count="6">
+          <div data-reveal style="background: #fff; border: 1px solid #e8ebef; border-radius: 22px; padding: 30px;">
+            <div style="width: 54px; height: 54px; border-radius: 16px; background: linear-gradient(135deg,#007BFF,#3B9BFF); display: grid; place-items: center; margin-bottom: 20px; box-shadow: 0 12px 26px rgba(0,123,255,.3);">{{ f.icon }}</div>
+            <h3 style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 19px; margin: 0 0 9px;">{{ f.title }}</h3>
+            <p style="color: #6b7280; font-size: 14.5px; line-height: 1.6; margin: 0;">{{ f.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section style="background: #fff; padding: clamp(60px,10vw,110px) clamp(20px,5vw,40px); overflow: hidden;">
+    <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+      <div data-reveal style="margin-bottom: 48px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">Loved by shippers</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; margin: 0;">Trusted across the lane</h2>
+      </div>
+      <div data-reveal style="position: relative; overflow: hidden; border-radius: 26px;">
+        <div style="display: flex; transition: transform .6s cubic-bezier(.16,.84,.44,1); transform: translateX({{ trackShift }});">
+          <sc-for list="{{ testimonials }}" as="t" hint-placeholder-count="4">
+            <div style="min-width: 100%; padding: clamp(28px,6vw,46px) clamp(20px,6vw,50px); box-sizing: border-box;">
+              <div style="display: flex; gap: 3px; justify-content: center; margin-bottom: 20px;">{{ t.stars }}</div>
+              <p style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(18px,3vw,24px); line-height: 1.45; letter-spacing: -.02em; color: #0A0E17; margin: 0 0 26px;">"{{ t.quote }}"</p>
+              <div style="display: flex; align-items: center; justify-content: center; gap: 13px;">
+                <div style="width: 48px; height: 48px; border-radius: 50%; background: {{ t.avatar }}; display: grid; place-items: center; color: #fff; font-weight: 700; font-family: 'Space Grotesk';">{{ t.initials }}</div>
+                <div style="text-align: left;">
+                  <div style="font-weight: 600; font-size: 15px;">{{ t.name }}</div>
+                  <div style="color: #6b7280; font-size: 13px;">{{ t.role }}</div>
+                </div>
+              </div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+      <div style="display: flex; gap: 9px; justify-content: center; margin-top: 28px;">
+        <sc-for list="{{ dots }}" as="d" hint-placeholder-count="4">
+          <button onClick="{{ d.go }}" style="width: {{ d.w }}; height: 8px; border-radius: 999px; border: none; background: {{ d.bg }}; cursor: pointer; padding: 0; transition: all .3s;"></button>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING CTA -->
+  <section id="pricing" style="padding: clamp(24px,5vw,40px) clamp(20px,5vw,40px) clamp(60px,10vw,110px);">
+    <div data-reveal style="max-width: 1180px; margin: 0 auto; border-radius: 32px; padding: clamp(40px,8vw,76px) clamp(20px,5vw,40px); text-align: center; position: relative; overflow: hidden; background: radial-gradient(120% 140% at 50% 0%, #0d2036, #05070d); border: 1px solid rgba(90,169,255,.2);">
+      <div style="position: absolute; inset: 0; background: linear-gradient(110deg, transparent, rgba(0,123,255,.14), transparent); background-size: 200% 100%; animation: sheen 6s linear infinite; pointer-events: none;"></div>
+      <h2 style="position: relative; font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(30px,6vw,52px); letter-spacing: -.03em; color: #fff; margin: 0 0 18px;">Ready to Ship With Confidence?</h2>
+      <p style="position: relative; color: rgba(255,255,255,.6); font-size: 18px; max-width: 500px; margin: 0 auto 34px;">Get a quote in under a minute and start moving freight today.</p>
+      <div style="position: relative; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap;">
+        <a href="Ari%20Logistics%20Rates.dc.html" data-mag="1" style="background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; border: none; padding: 16px 32px; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 14px 34px rgba(0,123,255,.5); text-decoration: none; display: inline-block;" style-hover="{{ ctaHover }}">Get Quote</a>
+        <a href="https://ep.shiptojm.com/register" data-mag="1" style="background: rgba(255,255,255,.08); color: #fff; border: 1px solid rgba(255,255,255,.2); padding: 16px 32px; border-radius: 14px; font-size: 16px; font-weight: 600; cursor: pointer; font-family: inherit; backdrop-filter: blur(10px); text-decoration: none; display: inline-block;" style-hover="{{ ghostHover }}">Start Shipping</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SHOP FROM STORES -->
+  <section style="background: #F8F9FA; padding: clamp(60px,10vw,100px) clamp(20px,5vw,40px); border-top: 1px solid #eceef1;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-reveal style="text-align: center; margin-bottom: 48px;">
+        <div style="color: #007BFF; font-weight: 600; font-size: 14px; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 12px;">Shop anywhere</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(28px,5vw,44px); letter-spacing: -.03em; margin: 0 0 14px;">Shop from your favorite stores</h2>
+        <p style="color: #5b6472; font-size: 17px; max-width: 560px; margin: 0 auto; line-height: 1.6;">Use your free USA & China addresses at checkout. We receive it, consolidate it, and deliver it to your door in Jamaica.</p>
+      </div>
+      <div data-reveal style="display: grid; grid-template-columns: repeat(auto-fit, minmax(110px,1fr)); gap: 16px;">
+        <sc-for list="{{ stores }}" as="s" hint-placeholder-count="20">
+          <a href="{{ s.url }}" target="_blank" rel="noopener noreferrer" style="background: #fff; border: 1px solid #e8ebef; border-radius: 18px; padding: 22px 14px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-decoration: none; transition: transform .3s cubic-bezier(.16,.84,.44,1), box-shadow .3s, border-color .3s;" style-hover="{{ storeHover }}">
+            <div style="height: 40px; display: flex; align-items: center; justify-content: center;">
+              <img src="{{ s.logo }}" data-domain="{{ s.domain }}" onError="{{ logoErr }}" alt="{{ s.name }}" loading="lazy" style="width: 34px; height: 34px; object-fit: contain; border-radius: 8px;"/>
+            </div>
+            <div style="color: #5b6472; font-size: 12.5px; font-weight: 500; margin-top: 12px;">{{ s.name }}</div>
+          </a>
+        </sc-for>
+      </div>
+      <div data-reveal style="text-align: center; margin-top: 40px;">
+        <a href="https://ep.shiptojm.com/register" style="background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; border: none; padding: 15px 30px; border-radius: 14px; font-size: 15.5px; font-weight: 600; cursor: pointer; font-family: inherit; box-shadow: 0 12px 30px rgba(0,123,255,.4); text-decoration: none; display: inline-block;" style-hover="{{ ctaHover }}">Get your free shipping address</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background: #070B14; padding: clamp(48px,8vw,70px) clamp(20px,5vw,40px) 34px; border-top: 1px solid rgba(255,255,255,.07);">
+    <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); gap: clamp(24px,5vw,40px); padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,.08);">
+      <div>
+        <div style="display: flex; align-items: center; gap: 11px; margin-bottom: 16px;">
+          <img src="assets/ari-light-lockup.png" alt="Ari Logistics" style="height: 39px; width: auto; display: block;"/>
+        </div>
+        <p style="color: rgba(255,255,255,.5); font-size: 14px; line-height: 1.6; max-width: 260px;">International shipping from the USA & China to Jamaica — simple, fast, transparent.</p>
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+          <sc-for list="{{ socials }}" as="so" hint-placeholder-count="4">
+            <div style="width: 38px; height: 38px; border-radius: 11px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); display: grid; place-items: center; cursor: pointer;" style-hover="{{ socialHover }}">{{ so.icon }}</div>
+          </sc-for>
+        </div>
+      </div>
+      <div>
+        <div style="color: #fff; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Quick Links</div>
+        <sc-for list="{{ quickLinks }}" as="q" hint-placeholder-count="4"><a href="#" style="display: block; color: rgba(255,255,255,.5); font-size: 14px; text-decoration: none; padding: 6px 0;" style-hover="{{ footLink }}">{{ q }}</a></sc-for>
+      </div>
+      <div>
+        <div style="color: #fff; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Services</div>
+        <sc-for list="{{ footServices }}" as="q" hint-placeholder-count="4"><a href="#" style="display: block; color: rgba(255,255,255,.5); font-size: 14px; text-decoration: none; padding: 6px 0;" style-hover="{{ footLink }}">{{ q }}</a></sc-for>
+      </div>
+      <div>
+        <div style="color: #fff; font-weight: 600; font-size: 14px; margin-bottom: 16px;">Stay in the loop</div>
+        <p style="color: rgba(255,255,255,.5); font-size: 13.5px; margin: 0 0 14px; line-height: 1.5;">Rate updates and shipping tips, monthly.</p>
+        <div style="display: flex; gap: 8px;">
+          <input placeholder="you@email.com" style="flex: 1; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); border-radius: 11px; padding: 11px 14px; color: #fff; font-size: 14px; font-family: inherit; outline: none;"/>
+          <button style="background: linear-gradient(135deg,#3B9BFF,#007BFF); border: none; border-radius: 11px; padding: 0 16px; color: #fff; font-weight: 600; cursor: pointer; font-family: inherit;" style-hover="{{ ctaHover }}">→</button>
+        </div>
+      </div>
+    </div>
+    <div style="max-width: 1180px; margin: 22px auto 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+      <span style="color: rgba(255,255,255,.4); font-size: 13px;">© {{ year }} Ari Logistics. All rights reserved.</span>
+      <div style="display: flex; gap: 24px;"><a href="#" style="color: rgba(255,255,255,.4); font-size: 13px; text-decoration: none;">Contact</a><a href="#" style="color: rgba(255,255,255,.4); font-size: 13px; text-decoration: none;">Privacy</a><a href="#" style="color: rgba(255,255,255,.4); font-size: 13px; text-decoration: none;">Terms</a></div>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const H = (s) => React.createElement('span', { style: { display: 'inline-flex', lineHeight: 0 }, dangerouslySetInnerHTML: { __html: s } });
+const starSvg = '<svg width="18" height="18" viewBox="0 0 24 24" fill="#FFB020"><path d="M12 2l2.9 6.3 6.9.7-5.1 4.6 1.4 6.8L12 17.8 5.9 20.4l1.4-6.8L2.2 9l6.9-.7z"/></svg>';
+const star = H(starSvg);
+const ic = (p) => H('<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>');
+
+class Component extends DCLogic {
+  state = { active: 0, hub: null, navOpen: false, vw: (typeof window !== 'undefined' ? window.innerWidth : 1280) };
+
+  renderVals() {
+    const hoverLift = { transform: 'translateY(-2px)' };
+    const mobileNav = this.state.vw < 920;
+    const deskDisplay = mobileNav ? 'none' : 'flex';
+    const mobDisplay = mobileNav ? 'flex' : 'none';
+    const connectorDisplay = this.state.vw < 640 ? 'none' : 'block';
+    const navIcon = this.state.navOpen
+      ? H('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>')
+      : H('<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>');
+    const hubData = [
+      { name: 'USA Hub', x: '16%', y: '34%', px: '16%', py: '34%', wh: 'Miami, FL', time: '3–5 days', speed: 'Express air' },
+      { name: 'China Hub', x: '82%', y: '41%', px: '82%', py: '41%', wh: 'Shenzhen', time: '6–9 days', speed: 'Consolidated' },
+      { name: 'Jamaica', x: '51%', y: '55%', px: '51%', py: '55%', wh: 'Kingston', time: 'Final mile', speed: '24–48 hrs' },
+    ];
+    const active = this.state.hub != null ? hubData[this.state.hub] : null;
+
+    const cards = [
+      { title: 'USA Warehouse', sub: 'Miami, FL', tint: 'rgba(0,123,255,.25)', icon: ic('<path d="M3 9l9-5 9 5v6l-9 5-9-5V9z"/><path d="M12 12v8"/>'), x: '4%', y: '2%', anim: 'floatY', dur: '6s', depth: '3' },
+      { title: 'China Warehouse', sub: 'Shenzhen', tint: 'rgba(0,123,255,.25)', icon: ic('<rect x="3" y="8" width="18" height="12" rx="1"/><path d="M7 8V5h10v3"/>'), x: '54%', y: '0%', anim: 'floatY2', dur: '7s', depth: '5' },
+      { title: 'Fast Air Freight', sub: '3–5 day lanes', tint: 'rgba(53,208,127,.22)', icon: ic('<path d="M17 4l-5 8H6l-2 4 4 2 3-5h6l-1 5 3-1 2-9z"/>'), x: '0%', y: '38%', anim: 'floatY2', dur: '8s', depth: '4' },
+      { title: 'Ocean Freight', sub: 'FCL & LCL', tint: 'rgba(53,208,127,.22)', icon: ic('<path d="M3 14l9 4 9-4M4 10h16l-2 4H6z"/><path d="M12 6v4"/>'), x: '58%', y: '40%', anim: 'floatY', dur: '6.5s', depth: '6' },
+      { title: 'Customs Clearance', sub: 'Zero paperwork', tint: 'rgba(0,123,255,.25)', icon: ic('<path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/>'), x: '28%', y: '66%', anim: 'floatY', dur: '7.5s', depth: '4' },
+      { title: 'Consolidation', sub: 'Combine & save', tint: 'rgba(53,208,127,.22)', icon: ic('<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="8" y="13" width="8" height="8" rx="1"/>'), x: '68%', y: '76%', anim: 'floatY2', dur: '8.5s', depth: '5' },
+    ];
+
+    const stats = [
+      { value: 25000, dec: 0, display: '25,000', suffix: '+', label: 'Packages Delivered' },
+      { value: 98.9, dec: 1, display: '98.9', suffix: '%', label: 'On-Time Delivery' },
+      { value: 12, dec: 0, display: '12', suffix: '+', label: 'Countries Connected' },
+      { value: 0, dec: 0, display: '24/7', suffix: '', label: 'Customer Support' },
+    ];
+
+    const svc = (t, d, p) => ({ title: t, desc: d, icon: ic(p) });
+    const services = [
+      svc('USA Shipping', 'Ship from any US store to our Miami hub, then home.', '<path d="M3 9l9-5 9 5v6l-9 5-9-5V9z"/>'),
+      svc('China Shipping', 'Source and consolidate directly from Chinese suppliers.', '<rect x="3" y="8" width="18" height="12" rx="1"/><path d="M7 8V5h10v3"/>'),
+      svc('Air Freight', 'Priority air lanes for time-sensitive cargo.', '<path d="M17 4l-5 8H6l-2 4 4 2 3-5h6l-1 5 3-1 2-9z"/>'),
+      svc('Ocean Freight', 'Cost-effective FCL and LCL container shipping.', '<path d="M3 14l9 4 9-4M4 10h16l-2 4H6z"/>'),
+      svc('Consolidation', 'Combine multiple orders into one economical shipment.', '<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="8" y="13" width="8" height="8" rx="1"/>'),
+      svc('Customs Brokerage', 'We clear customs so your goods never sit idle.', '<path d="M9 12l2 2 4-4"/><path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/>'),
+      svc('Business Shipping', 'Bulk rates, invoicing, and dedicated account leads.', '<path d="M3 21h18M6 21V8l6-4 6 4v13"/><path d="M10 12h4M10 16h4"/>'),
+      svc('Personal Shipping', 'Import gadgets, fashion, and gifts with ease.', '<path d="M6 2l1.5 3h9L18 2M4 8h16l-1 12H5z"/>'),
+    ];
+
+    const steps = [
+      { n: '1', title: 'Create Account', desc: 'Sign up and get your free USA & China addresses.' },
+      { n: '2', title: 'Shop Online', desc: 'Buy from any store and ship to your new address.' },
+      { n: '3', title: 'Ship to Warehouse', desc: 'We receive, inspect, and consolidate your packages.' },
+      { n: '4', title: 'We Deliver', desc: 'Your order arrives at your door in Jamaica.' },
+    ];
+
+    const feat = (t, d, p) => ({ title: t, desc: d, icon: H('<svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>') });
+    const features = [
+      feat('Fast Delivery', 'Optimized lanes get your freight moving without delay.', '<path d="M13 2L3 14h9l-1 8 10-12h-9z"/>'),
+      feat('Affordable Rates', 'Transparent pricing with no hidden surprise fees.', '<path d="M12 2v20M17 6H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>'),
+      feat('Real-Time Tracking', 'Follow every package from warehouse to your hands.', '<circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 00-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 00-8-8z"/>'),
+      feat('Secure Warehousing', 'Insured, monitored facilities on both continents.', '<path d="M12 3l7 3v6c0 4-3 7-7 8-4-1-7-4-7-8V6z"/><path d="M9 12l2 2 4-4"/>'),
+      feat('Experienced Team', 'Logistics veterans who know every customs rule.', '<circle cx="9" cy="8" r="3"/><path d="M15 11a3 3 0 100-6M2 21v-2a5 5 0 015-5h4a5 5 0 015 5v2M17 14a5 5 0 015 5v2"/>'),
+      feat('Dedicated Support', 'Real humans, around the clock, ready to help.', '<path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/>'),
+    ];
+
+    const tData = [
+      { quote: 'Ari Logistics cut our China-to-Kingston lead time by nearly half. Absolute game changer for our store.', name: 'Andre Campbell', role: 'Founder, Islandware', initials: 'AC', avatar: 'linear-gradient(135deg,#007BFF,#3B9BFF)' },
+      { quote: 'Consolidation alone saved me thousands. Everything arrives faster than I ever expected.', name: 'Simone Reid', role: 'Importer, Kingston', initials: 'SR', avatar: 'linear-gradient(135deg,#35d07f,#1fa863)' },
+      { quote: 'The tracking is flawless and support actually answers. I recommend them to every business owner I know.', name: 'Marcus Brown', role: 'Ops, RB Trading', initials: 'MB', avatar: 'linear-gradient(135deg,#7a5cff,#a48bff)' },
+      { quote: 'Customs used to terrify me. Now it just happens in the background. Truly effortless.', name: 'Keisha Watson', role: 'Personal shopper', initials: 'KW', avatar: 'linear-gradient(135deg,#ff7a59,#ffb020)' },
+    ];
+    const testimonials = tData.map(t => ({ ...t, stars: H(starSvg.repeat(5)) }));
+    const dots = tData.map((_, i) => ({ go: () => this.setState({ active: i }), w: i === this.state.active ? '26px' : '8px', bg: i === this.state.active ? '#007BFF' : '#d3dae2' }));
+
+    const sic = (p) => H('<svg width="17" height="17" viewBox="0 0 24 24" fill="rgba(255,255,255,.7)">'+p+'</svg>');
+    const socials = [
+      { icon: sic('<path d="M22 5.8a8 8 0 01-2.4.7 4 4 0 001.8-2.2 8 8 0 01-2.5 1 4 4 0 00-6.9 3.6A11.4 11.4 0 013 4.8a4 4 0 001.2 5.3A4 4 0 012.4 9.6v.1a4 4 0 003.2 3.9 4 4 0 01-1.8.1 4 4 0 003.7 2.8A8 8 0 012 18.3a11.3 11.3 0 006.1 1.8c7.4 0 11.4-6.1 11.4-11.4v-.5A8 8 0 0022 5.8z"/>') },
+      { icon: sic('<path d="M12 2.2c3.2 0 3.6 0 4.9.1 3.3.1 4.8 1.7 4.9 4.9.1 1.3.1 1.6.1 4.8s0 3.6-.1 4.9c-.1 3.2-1.6 4.8-4.9 4.9-1.3.1-1.6.1-4.9.1s-3.6 0-4.9-.1c-3.3-.1-4.8-1.7-4.9-4.9C2.1 15.6 2 15.2 2 12s0-3.6.1-4.9C2.3 3.9 3.8 2.4 7 2.3 8.4 2.2 8.8 2.2 12 2.2zm0 4.9a4.9 4.9 0 100 9.8 4.9 4.9 0 000-9.8zm0 8a3.1 3.1 0 110-6.2 3.1 3.1 0 010 6.2zm5.1-8.3a1.1 1.1 0 100 2.3 1.1 1.1 0 000-2.3z"/>') },
+      { icon: sic('<path d="M19 3a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h14zM8.3 18V10H5.7v8h2.6zM7 8.8a1.5 1.5 0 100-3 1.5 1.5 0 000 3zM18.3 18v-4.4c0-2.4-1.3-3.5-3-3.5a2.6 2.6 0 00-2.3 1.3V10H10.4v8H13v-4.4c0-1.2.2-2.3 1.7-2.3s1.5 1.3 1.5 2.4V18h2.1z"/>') },
+      { icon: sic('<path d="M23 7.5a3 3 0 00-2.1-2.1C19 5 12 5 12 5s-7 0-8.9.4A3 3 0 001 7.5 31 31 0 001 12a31 31 0 00.1 4.5 3 3 0 002.1 2.1C5 19 12 19 12 19s7 0 8.9-.4a3 3 0 002.1-2.1A31 31 0 0023 12a31 31 0 00-.0-4.5zM10 15V9l5 3z"/>') },
+    ];
+
+    const mkStore = (name, domain) => ({ name, domain, url: 'https://' + domain, logo: 'https://www.google.com/s2/favicons?domain=' + domain + '&sz=128' });
+    const stores = [
+      mkStore('Amazon', 'amazon.com'), mkStore('eBay', 'ebay.com'), mkStore('Walmart', 'walmart.com'),
+      mkStore('Target', 'target.com'), mkStore('Best Buy', 'bestbuy.com'), mkStore('AliExpress', 'aliexpress.com'),
+      mkStore('Alibaba', 'alibaba.com'), mkStore('Temu', 'temu.com'), mkStore('SHEIN', 'shein.com'),
+      mkStore('Etsy', 'etsy.com'), mkStore('Nike', 'nike.com'), mkStore('Wayfair', 'wayfair.com'),
+      mkStore('Home Depot', 'homedepot.com'), mkStore("Macy's", 'macys.com'), mkStore('Newegg', 'newegg.com'),
+      mkStore('ASOS', 'asos.com'), mkStore('Sephora', 'sephora.com'), mkStore('DHgate', 'dhgate.com'),
+      mkStore('Banggood', 'banggood.com'), mkStore('Costco', 'costco.com'),
+    ];
+    const logoErr = (e) => {
+      const t = e.target;
+      if (!t.dataset.fb) { t.dataset.fb = '1'; t.src = 'https://icons.duckduckgo.com/ip3/' + t.dataset.domain + '.ico'; }
+      else { t.style.display = 'none'; }
+    };
+
+    return {
+      rootRef: (el) => { this.root = el; },
+      globeRef: (el) => { this.globe = el; },
+      heroTextRef: (el) => { this.heroText = el; },
+      cardsRef: (el) => { this.cards = el; },
+      statsRef: (el) => { this.stats = el; },
+      navHover: { color: '#fff' },
+      navBtnHover: { background: 'rgba(255,255,255,.1)' },
+      ctaHover: { transform: 'translateY(-2px)', boxShadow: '0 18px 40px rgba(0,123,255,.55)' },
+      ghostHover: { background: 'rgba(255,255,255,.14)', transform: 'translateY(-2px)' },
+      serviceHover: { transform: 'translateY(-6px)', boxShadow: '0 24px 50px rgba(0,123,255,.18)', borderColor: 'rgba(0,123,255,.55)' },
+      socialHover: { background: 'rgba(0,123,255,.25)' },
+      storeHover: { transform: 'translateY(-4px)', boxShadow: '0 16px 34px rgba(0,123,255,.16)', borderColor: 'rgba(0,123,255,.5)' },
+      footLink: { color: '#fff' },
+      stores, logoErr,
+      heroCards: cards,
+      stats, services, steps, features, testimonials, dots,
+      hubs: hubData.map((h, i) => ({ ...h, enter: () => this.setState({ hub: i }) })),
+      setNull: () => this.setState({ hub: null }),
+      activeHub: active,
+      trackShift: (-this.state.active * 100) + '%',
+      socials,
+      quickLinks: ['About Us', 'How It Works', 'Track Package', 'Careers'],
+      footServices: ['USA Shipping', 'China Shipping', 'Air Freight', 'Ocean Freight'],
+      year: new Date().getFullYear(),
+      deskDisplay, mobDisplay, navIcon, connectorDisplay,
+      navOpen: this.state.navOpen,
+      toggleNav: () => this.setState(s => ({ navOpen: !s.navOpen })),
+      closeNav: () => this.setState({ navOpen: false }),
+    };
+  }
+
+  componentDidMount() {
+    this.initGlobe();
+    this.initReveal();
+    this.initParallax();
+    this.initScroll();
+    this.autoplay = setInterval(() => this.setState(s => ({ active: (s.active + 1) % 4 })), 5500);
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    clearInterval(this.autoplay);
+    if (this._io) this._io.disconnect();
+    if (this._mo) this._mo.disconnect();
+    clearInterval(this._scanTimer);
+    clearTimeout(this._safety);
+    clearTimeout(this._safetyPass);
+    if (this._onMove) window.removeEventListener('mousemove', this._onMove);
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+  }
+
+  initScroll() {
+    const els = [...(this.root || document).querySelectorAll('[data-parallax]')];
+    if (!els.length) return;
+    this._onScroll = () => {
+      els.forEach(el => {
+        const speed = parseFloat(el.getAttribute('data-parallax')) || 0.15;
+        const r = el.parentElement.getBoundingClientRect();
+        const off = r.top + r.height / 2 - window.innerHeight / 2;
+        el.style.transform = `translateY(${(-off * speed).toFixed(1)}px)`;
+      });
+    };
+    window.addEventListener('scroll', this._onScroll, { passive: true });
+    this._onScroll();
+  }
+
+  initReveal() {
+    this._seen = new WeakSet();
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('in');
+          if (this.stats && this.stats.contains(e.target)) this.runCounters();
+          this._io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.18 });
+    this.scanReveal();
+    this._mo = new MutationObserver(() => this.scanReveal());
+    this._mo.observe(this.root || document.body, { childList: true, subtree: true });
+    this._scanTimer = setInterval(() => this.scanReveal(), 400);
+    this._safety = setTimeout(() => {
+      clearInterval(this._scanTimer);
+      if (this._mo) { this._mo.disconnect(); this._mo = null; }
+      this.scanReveal();
+      this._safetyPass = setTimeout(() => {
+        (this.root || document).querySelectorAll('[data-reveal]').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
+        });
+      }, 300);
+    }, 6000);
+  }
+
+  scanReveal() {
+    (this.root || document).querySelectorAll('[data-reveal]').forEach(el => {
+      if (this._seen.has(el)) return;
+      this._seen.add(el);
+      this._io.observe(el);
+    });
+  }
+
+  componentDidUpdate() { if (this._io) this.scanReveal(); }
+
+  runCounters() {
+    if (this._counted) return; this._counted = true;
+    this.stats.querySelectorAll('[data-count]').forEach(el => {
+      const target = parseFloat(el.getAttribute('data-count'));
+      const dec = parseInt(el.getAttribute('data-dec')) || 0;
+      if (!target) return; // 24/7 stays literal
+      const t0 = performance.now(), dur = 1600;
+      const tick = (t) => {
+        const p = Math.min((t - t0) / dur, 1);
+        const e = 1 - Math.pow(1 - p, 3);
+        const v = target * e;
+        el.textContent = dec ? v.toFixed(dec) : Math.round(v).toLocaleString();
+        if (p < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    });
+  }
+
+  initParallax() {
+    this._onMove = (e) => {
+      const cx = (e.clientX / window.innerWidth - 0.5);
+      const cy = (e.clientY / window.innerHeight - 0.5);
+      this.mx = cx; this.my = cy;
+      if (this.cards) {
+        this.cards.querySelectorAll('[data-depth]').forEach(c => {
+          const d = parseFloat(c.getAttribute('data-depth'));
+          c.style.transform = `translate(${cx * d * 6}px, ${cy * d * 6}px)`;
+        });
+      }
+    };
+    window.addEventListener('mousemove', this._onMove);
+  }
+
+  initGlobe() {
+    const cv = this.globe; if (!cv) return;
+    const ctx = cv.getContext('2d');
+    let W, H, DPR = Math.min(window.devicePixelRatio || 1, 2);
+    const resize = () => {
+      W = cv.clientWidth; H = cv.clientHeight;
+      cv.width = W * DPR; cv.height = H * DPR; ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+    };
+    resize(); window.addEventListener('resize', resize);
+
+    // fibonacci sphere points
+    const N = 620, pts = [];
+    for (let i = 0; i < N; i++) {
+      const y = 1 - (i / (N - 1)) * 2;
+      const r = Math.sqrt(1 - y * y);
+      const th = i * Math.PI * (3 - Math.sqrt(5));
+      pts.push([Math.cos(th) * r, y, Math.sin(th) * r]);
+    }
+    // arcs between random surface points
+    const arcs = [];
+    for (let i = 0; i < 5; i++) {
+      const a = pts[(Math.random() * N) | 0], b = pts[(Math.random() * N) | 0];
+      arcs.push({ a, b, off: Math.random() });
+    }
+    const particles = Array.from({ length: 60 }, () => ({ x: Math.random(), y: Math.random(), s: Math.random() * 1.4 + .3, sp: Math.random() * .0004 + .0001 }));
+
+    let rot = 0;
+    const draw = (t) => {
+      ctx.clearRect(0, 0, W, H);
+      const cx = W * 0.72, cy = H * 0.5, R = Math.min(W, H) * 0.34;
+      // background particles
+      particles.forEach(p => {
+        p.y -= p.sp; if (p.y < 0) p.y = 1;
+        ctx.globalAlpha = 0.4;
+        ctx.fillStyle = '#5aa9ff';
+        ctx.beginPath(); ctx.arc(p.x * W, p.y * H, p.s, 0, 7); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+
+      rot += 0.0016;
+      const my = (this.my || 0) * 0.4, mx = (this.mx || 0) * 0.5;
+      const proj = ([x, y, z]) => {
+        // rotate Y
+        let X = x * Math.cos(rot) - z * Math.sin(rot);
+        let Z = x * Math.sin(rot) + z * Math.cos(rot);
+        let Y = y;
+        // slight tilt from mouse
+        const ty = Y * Math.cos(my) - Z * Math.sin(my);
+        const tz = Y * Math.sin(my) + Z * Math.cos(my);
+        return { x: cx + X * R + mx * 14, y: cy + ty * R, z: tz };
+      };
+
+      // dots
+      pts.forEach(p => {
+        const q = proj(p);
+        const depth = (q.z + 1) / 2;
+        ctx.globalAlpha = 0.15 + depth * 0.7;
+        ctx.fillStyle = q.z > 0 ? '#8fc2ff' : '#2f5f96';
+        ctx.beginPath(); ctx.arc(q.x, q.y, 0.9 + depth * 1.2, 0, 7); ctx.fill();
+      });
+
+      // arcs with moving pulse
+      arcs.forEach(arc => {
+        const a = proj(arc.a), b = proj(arc.b);
+        const mxp = (a.x + b.x) / 2, myp = (a.y + b.y) / 2 - R * 0.5;
+        ctx.globalAlpha = 0.25;
+        ctx.strokeStyle = '#5aa9ff'; ctx.lineWidth = 1;
+        ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.quadraticCurveTo(mxp, myp, b.x, b.y); ctx.stroke();
+        // moving dot
+        arc.off += 0.006; if (arc.off > 1) arc.off = 0;
+        const u = arc.off, iu = 1 - u;
+        const px = iu * iu * a.x + 2 * iu * u * mxp + u * u * b.x;
+        const py = iu * iu * a.y + 2 * iu * u * myp + u * u * b.y;
+        ctx.globalAlpha = 0.9; ctx.fillStyle = '#fff';
+        ctx.beginPath(); ctx.arc(px, py, 2, 0, 7); ctx.fill();
+      });
+      ctx.globalAlpha = 1;
+      this.raf = requestAnimationFrame(draw);
+    };
+    this.raf = requestAnimationFrame(draw);
+  }
+}
+</script>
+</body>
+</html>

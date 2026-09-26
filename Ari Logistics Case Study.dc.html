@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: #05070d; }
+  a { color: #5aa9ff; text-decoration: none; }
+  a:hover { color: #8fc2ff; }
+  [data-cs] { opacity: 0; transform: translateY(26px); transition: opacity .95s cubic-bezier(.16,.84,.44,1), transform .95s cubic-bezier(.16,.84,.44,1); }
+  [data-cs].in { opacity: 1; transform: none; }
+  @keyframes csFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes csSheen { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+  ::selection { background: #007BFF; color: #fff; }
+</style>
+</helmet>
+
+<div ref="{{ rootRef }}" style="font-family: 'Inter', system-ui, sans-serif; background: #05070d; color: #fff; overflow-x: clip;">
+
+  <!-- ░░ COVER ░░ -->
+  <section style="position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; background: #05070d; padding: clamp(40px,7vw,70px) clamp(20px,5vw,60px) 0;">
+    <img src="assets/port-aerial.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .42;"/>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, rgba(5,7,13,.6) 0%, rgba(5,7,13,.5) 30%, rgba(5,7,13,.93) 78%, #05070d 100%);"></div>
+    <div style="position: absolute; inset: 0; background: radial-gradient(90% 70% at 15% 55%, rgba(0,123,255,.2), transparent 70%);"></div>
+
+    <div style="position: absolute; top: clamp(28px,5vw,48px); left: clamp(20px,5vw,60px); right: clamp(20px,5vw,60px); z-index: 4; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap;">
+      <img src="assets/ari-light-lockup.png" alt="Ari Logistics" style="height: clamp(39px,5.0vw,53px); width: auto; display: block;"/>
+      <div style="color: rgba(255,255,255,.5); font-size: 12.5px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase;">Case Study · 2026</div>
+    </div>
+
+    <div style="position: relative; z-index: 3; max-width: 1280px; margin: 0 auto; width: 100%; padding-bottom: clamp(44px,7vw,72px);">
+      <div style="display: inline-flex; align-items: center; gap: 10px; padding: 8px 16px; border-radius: 999px; background: rgba(0,123,255,.16); border: 1px solid rgba(90,169,255,.36); backdrop-filter: blur(10px); margin-bottom: clamp(22px,4vw,30px);">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: #35d07f; box-shadow: 0 0 10px #35d07f;"></span>
+        <span style="color: #b6d8ff; font-size: 13px; font-weight: 600; letter-spacing: .04em;">UI/UX Design · Front-end Development</span>
+      </div>
+      <h1 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(44px,10vw,124px); line-height: .92; letter-spacing: -.045em; margin: 0 0 clamp(22px,4vw,32px);">Ari Logistics</h1>
+      <p style="font-family: 'Space Grotesk'; font-weight: 500; font-size: clamp(19px,3.2vw,38px); line-height: 1.22; letter-spacing: -.025em; color: rgba(255,255,255,.9); max-width: 20ch; margin: 0 0 clamp(30px,5vw,44px);">Shipping made simple.<br><span style="color: #5aa9ff;">Delivered with confidence.</span></p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(128px,auto)); gap: clamp(20px,4vw,54px); padding-top: clamp(24px,4vw,32px); border-top: 1px solid rgba(255,255,255,.16); max-width: 900px;">
+        <sc-for list="{{ coverMeta }}" as="m" hint-placeholder-count="4">
+          <div>
+            <div style="color: rgba(255,255,255,.42); font-size: 11px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 8px;">{{ m.k }}</div>
+            <div style="font-family: 'Space Grotesk'; font-weight: 600; font-size: clamp(13.5px,1.7vw,16px); color: #fff;">{{ m.v }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ HERO SCREEN, FULL BLEED ░░ -->
+  <section style="background: #05070d; padding: clamp(50px,8vw,90px) clamp(20px,5vw,60px) clamp(60px,10vw,110px);">
+    <div data-cs style="max-width: 1280px; margin: 0 auto;">
+      <div style="border-radius: clamp(12px,1.6vw,18px); overflow: hidden; border: 1px solid rgba(255,255,255,.16); box-shadow: 0 60px 130px rgba(0,0,0,.8), 0 0 100px rgba(0,123,255,.09);">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 11px 15px; background: #161b22;">
+          <div style="display: flex; gap: 7px;">
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #ff5f57;"></span>
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #febc2e;"></span>
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #28c840;"></span>
+          </div>
+          <div style="flex: 1; max-width: 400px; margin: 0 auto; padding: 5px 14px; border-radius: 7px; background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); font-size: 12px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ep.shiptojm.com</div>
+          <div style="width: 52px;"></div>
+        </div>
+        <img src="assets/shot-hero.png" alt="Ari Logistics homepage hero with animated globe" style="display: block; width: 100%; height: auto;"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 01 OVERVIEW ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #05070d;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="display: grid; grid-template-columns: repeat(auto-fit, minmax(290px,1fr)); gap: clamp(32px,6vw,80px); align-items: start;">
+        <div>
+          <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">01 — Overview</div>
+          <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0;">A courier that had outgrown its own website.</h2>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 20px;">
+          <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.74; color: rgba(255,255,255,.68); margin: 0;">Ari Logistics moves parcels and freight along one of the Caribbean's busiest import lanes — dual warehouses in Miami and Shenzhen, consolidation, customs brokerage, and last-mile delivery across Jamaica.</p>
+          <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.74; color: rgba(255,255,255,.55); margin: 0;">The operation was sophisticated. The website was a brochure. The brief was to build something genuinely high fidelity that carries every piece of information the business needs to communicate — and makes the company feel as considered as the logistics behind it.</p>
+        </div>
+      </div>
+
+      <div data-cs style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 1px; margin-top: clamp(44px,7vw,72px); background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.1); border-radius: 22px; overflow: hidden;">
+        <sc-for list="{{ overviewStats }}" as="o" hint-placeholder-count="4">
+          <div style="background: #05070d; padding: clamp(24px,3.4vw,34px);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(30px,4.6vw,44px); line-height: 1; letter-spacing: -.03em; background: linear-gradient(120deg,#fff,#6aaeff); -webkit-background-clip: text; background-clip: text; color: transparent;">{{ o.n }}</div>
+            <div style="color: rgba(255,255,255,.5); font-size: 13.5px; margin-top: 10px; line-height: 1.45;">{{ o.l }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 02 CHALLENGE ░░ -->
+  <section style="position: relative; padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); overflow: hidden; background: #070B14;">
+    <img src="assets/warehouse.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .2;"/>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #05070d 0%, rgba(7,11,20,.88) 35%, rgba(7,11,20,.92) 70%, #05070d 100%);"></div>
+    <div style="position: relative; max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="max-width: 740px; margin-bottom: clamp(40px,6vw,60px);">
+        <div style="color: #5aa9ff; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">02 — The challenge</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 18px;">Four things standing between a shopper and a shipment.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.62); margin: 0;">Each one came out of how customers actually behave: they want a price, they want to know where their box is, and they want to trust whoever is holding it.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(245px,1fr)); gap: 16px;">
+        <sc-for list="{{ challenges }}" as="c" hint-placeholder-count="4">
+          <div data-cs style="padding: clamp(24px,3vw,32px); border-radius: 22px; background: rgba(255,255,255,.055); border: 1px solid rgba(255,255,255,.12); backdrop-filter: blur(16px);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 12.5px; color: #5aa9ff; letter-spacing: .12em; margin-bottom: 18px;">{{ c.n }}</div>
+            <h3 style="font-family: 'Space Grotesk'; font-weight: 600; font-size: clamp(17px,2.1vw,19.5px); margin: 0 0 11px; letter-spacing: -.012em;">{{ c.t }}</h3>
+            <p style="color: rgba(255,255,255,.58); font-size: 14.5px; line-height: 1.64; margin: 0;">{{ c.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 03 BRAND ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #05070d;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="max-width: 720px; margin-bottom: clamp(38px,6vw,54px);">
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">03 — Brand &amp; palette</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 16px;">One confident blue. A lot of darkness.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.6); margin: 0;">The existing brand blue became the only accent in the system. Everything else is near-black, glass and white space — so blue appears exclusively where the user should act.</p>
+      </div>
+
+      <div data-cs style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px,1fr)); gap: 16px; margin-bottom: 16px;">
+        <div style="border-radius: 22px; padding: clamp(28px,4vw,40px); background: #05070d; border: 1px solid rgba(255,255,255,.12); display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="assets/ari-light-lockup.png" alt="Ari Logistics logo on dark" style="height: clamp(42px,5.6vw,59px); width: auto;"/>
+        </div>
+        <div style="border-radius: 22px; padding: clamp(28px,4vw,40px); background: #F8F9FA; display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="assets/ari-navy-lockup.png" alt="Ari Logistics logo on light" style="height: clamp(42px,5.6vw,59px); width: auto;"/>
+        </div>
+        <div style="border-radius: 22px; padding: clamp(28px,4vw,40px); background: linear-gradient(135deg,#3B9BFF,#007BFF); display: flex; align-items: center; justify-content: center; min-height: 150px;">
+          <img src="assets/ari-light-lockup.png" alt="Ari Logistics logo on blue" style="height: clamp(42px,5.6vw,59px); width: auto;"/>
+        </div>
+      </div>
+
+      <div data-cs style="display: grid; grid-template-columns: repeat(auto-fit, minmax(128px,1fr)); gap: 12px; margin-bottom: 20px;">
+        <sc-for list="{{ palette }}" as="p" hint-placeholder-count="6">
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid rgba(255,255,255,.12);">
+            <div style="height: clamp(84px,11vw,112px); background: {{ p.hex }};"></div>
+            <div style="padding: 13px 15px; background: rgba(255,255,255,.04);">
+              <div style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 13.5px;">{{ p.name }}</div>
+              <div style="color: rgba(255,255,255,.44); font-size: 12px; margin-top: 3px; font-variant-numeric: tabular-nums;">{{ p.hex }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div data-cs style="display: grid; grid-template-columns: repeat(auto-fit, minmax(232px,1fr)); gap: 14px;">
+        <sc-for list="{{ brandNotes }}" as="b" hint-placeholder-count="3">
+          <div style="padding: 22px; border-radius: 18px; background: rgba(0,123,255,.08); border: 1px solid rgba(90,169,255,.24);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 15.5px; margin-bottom: 8px;">{{ b.t }}</div>
+            <p style="color: rgba(255,255,255,.58); font-size: 14px; line-height: 1.6; margin: 0;">{{ b.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 04 TYPOGRAPHY ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #070B14; border-top: 1px solid rgba(255,255,255,.07); border-bottom: 1px solid rgba(255,255,255,.07);">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="margin-bottom: clamp(36px,6vw,54px);">
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">04 — Typography</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0;">Geometric for voice. Neutral for substance.</h2>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(310px,1fr)); gap: 18px;">
+        <div data-cs style="padding: clamp(26px,4vw,40px); border-radius: 24px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.11);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(21px,2.8vw,27px); letter-spacing: -.02em;">Space Grotesk</div>
+            <div style="color: #5aa9ff; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;">Display</div>
+          </div>
+          <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(52px,9vw,84px); line-height: .95; letter-spacing: -.04em; margin-bottom: 18px;">Aa</div>
+          <div style="font-family: 'Space Grotesk'; color: rgba(255,255,255,.48); font-size: clamp(13px,1.6vw,15px); line-height: 1.66; letter-spacing: .03em; word-break: break-word;">ABCDEFGHIJKLM<br>NOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 $ % +</div>
+          <div style="height: 1px; background: rgba(255,255,255,.11); margin: 22px 0;"></div>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="font-family: 'Space Grotesk'; font-weight: 400; font-size: 16.5px; color: rgba(255,255,255,.7);">Regular 400</div>
+            <div style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 16.5px; color: rgba(255,255,255,.86);">Semibold 600</div>
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 16.5px; color: #fff;">Bold 700</div>
+          </div>
+          <p style="color: rgba(255,255,255,.44); font-size: 13.5px; line-height: 1.62; margin: 22px 0 0;">Every headline, figure and price. Wide apertures and squared terminals give the brand its transit-signage feel.</p>
+        </div>
+        <div data-cs style="padding: clamp(26px,4vw,40px); border-radius: 24px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.11);">
+          <div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; margin-bottom: 20px;">
+            <div style="font-weight: 700; font-size: clamp(21px,2.8vw,27px); letter-spacing: -.02em;">Inter</div>
+            <div style="color: #5aa9ff; font-size: 12px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase;">Body</div>
+          </div>
+          <div style="font-weight: 700; font-size: clamp(52px,9vw,84px); line-height: .95; letter-spacing: -.04em; margin-bottom: 18px;">Aa</div>
+          <div style="color: rgba(255,255,255,.48); font-size: clamp(13px,1.6vw,15px); line-height: 1.66; word-break: break-word;">ABCDEFGHIJKLM<br>NOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz<br>0123456789 $ % +</div>
+          <div style="height: 1px; background: rgba(255,255,255,.11); margin: 22px 0;"></div>
+          <div style="display: flex; flex-direction: column; gap: 9px;">
+            <div style="font-weight: 400; font-size: 16.5px; color: rgba(255,255,255,.7);">Regular 400</div>
+            <div style="font-weight: 500; font-size: 16.5px; color: rgba(255,255,255,.86);">Medium 500</div>
+            <div style="font-weight: 600; font-size: 16.5px; color: #fff;">Semibold 600</div>
+          </div>
+          <p style="color: rgba(255,255,255,.44); font-size: 13.5px; line-height: 1.62; margin: 22px 0 0;">All running copy, labels and table data — chosen for how quietly it disappears at small sizes on dark grounds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 05 HOMEPAGE SECTIONS ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #05070d;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="max-width: 740px; margin-bottom: clamp(38px,6vw,56px);">
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">05 — The marketing site</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 16px;">Eleven sections, each answering the next question.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.6); margin: 0;">The homepage is sequenced like a conversation — capability, then proof, then process, then reach, then reassurance, then the ask.</p>
+      </div>
+
+      <div data-cs style="border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); margin-bottom: 18px; box-shadow: 0 40px 90px rgba(0,0,0,.55);">
+        <img src="assets/shot-services.png" alt="Services grid with eight service cards" style="display: block; width: 100%; height: auto;"/>
+      </div>
+      <div data-cs style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: clamp(36px,6vw,54px); padding-left: 4px;">
+        <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 13px; color: #5aa9ff; letter-spacing: .1em;">SERVICES</span>
+        <span style="color: rgba(255,255,255,.5); font-size: 14.5px; line-height: 1.55;">Eight offerings on a single fluid grid — cards lift into a blue glow on hover.</span>
+      </div>
+
+      <div data-cs style="border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); margin-bottom: 18px; box-shadow: 0 40px 90px rgba(0,0,0,.55);">
+        <img src="assets/shot-network.png" alt="Interactive hub network map showing USA, China and Jamaica" style="display: block; width: 100%; height: auto;"/>
+      </div>
+      <div data-cs style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; margin-bottom: clamp(36px,6vw,54px); padding-left: 4px;">
+        <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 13px; color: #5aa9ff; letter-spacing: .1em;">NETWORK</span>
+        <span style="color: rgba(255,255,255,.5); font-size: 14.5px; line-height: 1.55;">USA and China landmasses sit behind animated routes; hovering a hub reveals warehouse, transit time and speed.</span>
+      </div>
+
+      <div data-cs style="border-radius: 22px; overflow: hidden; border: 1px solid rgba(255,255,255,.12); margin-bottom: 18px; box-shadow: 0 40px 90px rgba(0,0,0,.55);">
+        <img src="assets/shot-gallery.png" alt="Three operations photographs: port, warehouse and delivery" style="display: block; width: 100%; height: auto;"/>
+      </div>
+      <div data-cs style="display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; padding-left: 4px;">
+        <span style="font-family: 'Space Grotesk'; font-weight: 700; font-size: 13px; color: #5aa9ff; letter-spacing: .1em;">OPERATIONS</span>
+        <span style="color: rgba(255,255,255,.5); font-size: 14.5px; line-height: 1.55;">Real photography of port, warehouse and doorstep — the trust argument the old site never made.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ PHOTO BREAK ░░ -->
+  <section style="position: relative; height: clamp(300px,45vw,480px); overflow: hidden;">
+    <img src="assets/delivery-handoff.jpg" alt="Customer receiving a parcel at their door" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;"/>
+    <div style="position: absolute; inset: 0; background: linear-gradient(180deg, #05070d 0%, rgba(5,7,13,.45) 26%, rgba(5,7,13,.55) 62%, #05070d 100%);"></div>
+    <div data-cs style="position: relative; z-index: 2; height: 100%; display: flex; align-items: center; justify-content: center; padding: 0 clamp(20px,5vw,60px);">
+      <p style="font-family: 'Space Grotesk'; font-weight: 600; font-size: clamp(21px,3.6vw,44px); line-height: 1.22; letter-spacing: -.03em; text-align: center; max-width: 24ch; margin: 0; text-wrap: pretty;">The whole site exists to make <span style="color: #5aa9ff;">this moment</span> feel inevitable.</p>
+    </div>
+  </section>
+
+  <!-- ░░ 06 RATE CALCULATOR ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: linear-gradient(180deg, #05070d, #0d2036 52%, #05070d); position: relative; overflow: hidden;">
+    <div style="position: absolute; top: 8%; left: -140px; width: 440px; height: 440px; border-radius: 50%; background: radial-gradient(circle, rgba(0,123,255,.24), transparent 70%); filter: blur(30px);"></div>
+    <div style="max-width: 1180px; margin: 0 auto; position: relative;">
+      <div data-cs style="max-width: 760px; margin-bottom: clamp(34px,5vw,48px);">
+        <div style="color: #5aa9ff; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">06 — Rate calculator</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 16px;">Turning a price sheet into an answer.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.64); margin: 0;">The client supplied a ten-row rate table. Reading it, the model was obvious — a fixed first pound, a flat rate per additional pound, 15% GCT on top. Encoding the formula instead of the rows let the calculator reach 100 lbs without a line of extra data.</p>
+      </div>
+
+      <div data-cs style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 14px; margin-bottom: clamp(28px,5vw,40px);">
+        <sc-for list="{{ formulaBits }}" as="fb" hint-placeholder-count="4">
+          <div style="padding: clamp(20px,3vw,26px); border-radius: 20px; background: rgba(255,255,255,.06); border: 1px solid rgba(90,169,255,.28); backdrop-filter: blur(12px);">
+            <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(24px,3.6vw,33px); color: #fff; letter-spacing: -.025em;">{{ fb.v }}</div>
+            <div style="color: rgba(255,255,255,.56); font-size: 13px; margin-top: 7px;">{{ fb.l }}</div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div data-cs style="border-radius: clamp(12px,1.6vw,18px); overflow: hidden; border: 1px solid rgba(255,255,255,.16); box-shadow: 0 50px 110px rgba(0,0,0,.7);">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 11px 15px; background: #161b22;">
+          <div style="display: flex; gap: 7px;">
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #ff5f57;"></span>
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #febc2e;"></span>
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #28c840;"></span>
+          </div>
+          <div style="flex: 1; max-width: 400px; margin: 0 auto; padding: 5px 14px; border-radius: 7px; background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); font-size: 12px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ep.shiptojm.com/rates</div>
+          <div style="width: 52px;"></div>
+        </div>
+        <img src="assets/shot-rates.png" alt="Rate calculator showing a 3 lb quote of $1,495.00 including GCT" style="display: block; width: 100%; height: auto;"/>
+      </div>
+      <p data-cs style="text-align: center; color: rgba(255,255,255,.4); font-size: 13px; margin: 18px 0 0;">Drag the slider or tap a rate-card row — quote, tax breakdown and total update instantly.</p>
+    </div>
+  </section>
+
+  <!-- ░░ 07 TRACKING ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #05070d;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="max-width: 740px; margin-bottom: clamp(34px,5vw,48px);">
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">07 — Tracking</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 16px;">One field for three carriers.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.6); margin: 0;">Parcels arrive via DHL, FedEx and UPS, so customers were leaving to google carrier sites. The tracking page auto-detects the carrier from the number format and redirects straight to the right page — keeping Ari Logistics in the journey.</p>
+      </div>
+      <div data-cs style="border-radius: clamp(12px,1.6vw,18px); overflow: hidden; border: 1px solid rgba(255,255,255,.16); box-shadow: 0 50px 110px rgba(0,0,0,.7);">
+        <div style="display: flex; align-items: center; gap: 10px; padding: 11px 15px; background: #161b22;">
+          <div style="display: flex; gap: 7px;">
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #ff5f57;"></span>
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #febc2e;"></span>
+            <span style="width: 11px; height: 11px; border-radius: 50%; background: #28c840;"></span>
+          </div>
+          <div style="flex: 1; max-width: 400px; margin: 0 auto; padding: 5px 14px; border-radius: 7px; background: rgba(255,255,255,.07); color: rgba(255,255,255,.5); font-size: 12px; text-align: center; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">ep.shiptojm.com/track</div>
+          <div style="width: 52px;"></div>
+        </div>
+        <img src="assets/shot-tracking.png" alt="Tracking page with DHL, FedEx and UPS carrier selection" style="display: block; width: 100%; height: auto;"/>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 08 RESPONSIVE ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #070B14; border-top: 1px solid rgba(255,255,255,.07);">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="text-align: center; max-width: 740px; margin: 0 auto clamp(44px,7vw,68px);">
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">08 — Responsive</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 16px;">Most of this traffic arrives on a phone.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.6); margin: 0;">Every grid is fluid rather than breakpoint-locked, so layouts reflow continuously instead of snapping. These are live frames — the real pages running at 390px.</p>
+      </div>
+      <div style="display: flex; gap: clamp(16px,4vw,44px); justify-content: center; align-items: flex-start; flex-wrap: wrap;">
+        <sc-for list="{{ phones }}" as="ph" hint-placeholder-count="3">
+          <div data-cs style="display: flex; flex-direction: column; align-items: center; gap: 18px;">
+            <div style="position: relative; width: {{ phoneW }}; height: {{ phoneH }}; border-radius: {{ phoneRadius }}; background: #12151c; padding: {{ phoneBezel }}; box-shadow: 0 44px 88px rgba(0,0,0,.66), inset 0 0 0 1px rgba(255,255,255,.16); animation: csFloat {{ ph.dur }} ease-in-out infinite;">
+              <div style="position: relative; width: 100%; height: 100%; border-radius: {{ phoneInnerRadius }}; overflow: hidden; background: #05070d;">
+                <iframe src="{{ ph.src }}" title="{{ ph.label }}" scrolling="no" style="position: absolute; top: 0; left: 0; width: 390px; height: 844px; border: 0; transform: scale({{ phoneScale }}); transform-origin: top left;"></iframe>
+                <div style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); width: 32%; height: {{ notchH }}; background: #12151c; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px;"></div>
+              </div>
+            </div>
+            <div style="text-align: center;">
+              <div style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 15px;">{{ ph.label }}</div>
+              <div style="color: rgba(255,255,255,.44); font-size: 12.5px; margin-top: 3px;">{{ ph.note }}</div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 09 MOTION ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #05070d;">
+    <div style="max-width: 1180px; margin: 0 auto;">
+      <div data-cs style="max-width: 740px; margin-bottom: clamp(38px,6vw,54px);">
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">09 — Interaction &amp; motion</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 16px;">Motion that reports, never performs.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.7; color: rgba(255,255,255,.6); margin: 0;">Every animation is tied to something real — a route being travelled, a figure being counted, an element entering view. Nothing loops purely for decoration in the reading path.</p>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(252px,1fr)); gap: 16px;">
+        <sc-for list="{{ motions }}" as="m" hint-placeholder-count="6">
+          <div data-cs style="padding: clamp(24px,3vw,30px); border-radius: 22px; background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.11);">
+            <div style="width: 46px; height: 46px; border-radius: 14px; background: linear-gradient(135deg,#3B9BFF,#007BFF); display: grid; place-items: center; margin-bottom: 18px; box-shadow: 0 12px 26px rgba(0,123,255,.34);">{{ m.icon }}</div>
+            <h3 style="font-family: 'Space Grotesk'; font-weight: 600; font-size: 17.5px; margin: 0 0 9px; letter-spacing: -.012em;">{{ m.t }}</h3>
+            <p style="color: rgba(255,255,255,.56); font-size: 14.5px; line-height: 1.64; margin: 0;">{{ m.d }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ 10 TECH ░░ -->
+  <section style="padding: clamp(60px,10vw,120px) clamp(20px,5vw,60px); background: #070B14; border-top: 1px solid rgba(255,255,255,.07);">
+    <div style="max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px,1fr)); gap: clamp(32px,6vw,70px); align-items: start;">
+      <div data-cs>
+        <div style="color: #007BFF; font-weight: 600; font-size: 12.5px; letter-spacing: .14em; text-transform: uppercase; margin-bottom: 18px;">10 — Tools &amp; build</div>
+        <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(27px,4.4vw,46px); line-height: 1.06; letter-spacing: -.032em; margin: 0 0 18px;">Designed directly in code.</h2>
+        <p style="font-size: clamp(15.5px,1.8vw,17.5px); line-height: 1.72; color: rgba(255,255,255,.6); margin: 0;">No framework, no build step, no component library. Three hand-authored pages that deploy as static files — fast, cheap to host, and trivial to hand to any future developer.</p>
+      </div>
+      <div data-cs style="display: flex; flex-wrap: wrap; gap: 10px;">
+        <sc-for list="{{ stack }}" as="s" hint-placeholder-count="10">
+          <div style="padding: 12px 20px; border-radius: 999px; background: rgba(255,255,255,.05); border: 1px solid rgba(255,255,255,.14); font-size: 14.5px; font-weight: 500; color: rgba(255,255,255,.84);">{{ s }}</div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ░░ CLOSE ░░ -->
+  <section style="position: relative; padding: clamp(80px,14vw,150px) clamp(20px,5vw,60px); overflow: hidden; text-align: center; background: #05070d;">
+    <img src="assets/port-aerial.jpg" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: .2;"/>
+    <div style="position: absolute; inset: 0; background: radial-gradient(110% 120% at 50% 0%, rgba(13,32,54,.9), #05070d 68%);"></div>
+    <div style="position: absolute; inset: 0; background: linear-gradient(110deg, transparent, rgba(0,123,255,.12), transparent); background-size: 200% 100%; animation: csSheen 7s linear infinite; pointer-events: none;"></div>
+    <div data-cs style="position: relative; max-width: 800px; margin: 0 auto;">
+      <img src="assets/ari-light-lockup.png" alt="Ari Logistics" style="height: clamp(39px,6.2vw,53px); width: auto; margin: 0 auto clamp(30px,5vw,44px); display: block;"/>
+      <h2 style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(32px,7vw,66px); line-height: 1.02; letter-spacing: -.04em; margin: 0 0 22px;">Thanks for scrolling.</h2>
+      <p style="font-size: clamp(16px,2vw,19px); line-height: 1.66; color: rgba(255,255,255,.62); margin: 0 auto clamp(38px,6vw,52px); max-width: 500px;">If you're building something that needs to look considered and actually work, I'd like to hear about it.</p>
+
+      <div style="display: inline-flex; flex-direction: column; align-items: center; padding: clamp(26px,4vw,38px) clamp(28px,6vw,58px); border-radius: 26px; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.16); backdrop-filter: blur(16px); max-width: 100%;">
+        <div style="font-family: 'Space Grotesk'; font-weight: 700; font-size: clamp(20px,3vw,27px); letter-spacing: -.025em;">Javian Whyte</div>
+        <div style="color: #5aa9ff; font-size: clamp(13.5px,1.7vw,15px); font-weight: 500; letter-spacing: .03em; margin-top: 6px;">Senior UI/UX Developer</div>
+        <a href="mailto:javianwhyte11@gmail.com" style="margin-top: 20px; display: inline-block; background: linear-gradient(135deg,#3B9BFF,#007BFF); color: #fff; padding: 14px 28px; border-radius: 14px; font-size: 15px; font-weight: 600; box-shadow: 0 14px 34px rgba(0,123,255,.45); word-break: break-word;" style-hover="{{ ctaHover }}">javianwhyte11@gmail.com</a>
+      </div>
+
+      <div style="display: flex; gap: clamp(16px,4vw,30px); justify-content: center; flex-wrap: wrap; margin-top: clamp(40px,6vw,56px); padding-top: 30px; border-top: 1px solid rgba(255,255,255,.12);">
+        <a href="index.html" style="color: rgba(255,255,255,.55); font-size: 14px; font-weight: 500;" style-hover="{{ linkHover }}">Homepage</a>
+        <a href="Ari%20Logistics%20Rates.dc.html" style="color: rgba(255,255,255,.55); font-size: 14px; font-weight: 500;" style-hover="{{ linkHover }}">Rate calculator</a>
+        <a href="Ari%20Logistics%20Tracking.dc.html" style="color: rgba(255,255,255,.55); font-size: 14px; font-weight: 500;" style-hover="{{ linkHover }}">Tracking</a>
+      </div>
+      <div style="color: rgba(255,255,255,.3); font-size: 12.5px; margin-top: 24px;">Ari Logistics · Shipping &amp; Logistics · {{ year }}</div>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:1280,&quot;height&quot;:900}}">
+const H = (s) => React.createElement('span', { style: { display: 'inline-flex', lineHeight: 0 }, dangerouslySetInnerHTML: { __html: s } });
+const mi = (p) => H('<svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">' + p + '</svg>');
+
+class Component extends DCLogic {
+  state = { vw: (typeof window !== 'undefined' ? window.innerWidth : 1280) };
+
+  renderVals() {
+    const vw = this.state.vw;
+    const phoneScale = vw < 560 ? 0.5 : vw < 900 ? 0.56 : 0.62;
+    const bezel = vw < 560 ? 8 : 10;
+
+    return {
+      rootRef: (el) => { this.root = el; },
+      phoneScale: phoneScale.toFixed(4),
+      phoneW: Math.round(390 * phoneScale) + 'px',
+      phoneH: Math.round(844 * phoneScale) + 'px',
+      phoneBezel: bezel + 'px',
+      phoneRadius: (Math.round(44 * phoneScale) + bezel) + 'px',
+      phoneInnerRadius: Math.round(40 * phoneScale) + 'px',
+      notchH: Math.round(26 * phoneScale) + 'px',
+
+      coverMeta: [
+        { k: 'Client', v: 'Ari Logistics' },
+        { k: 'Role', v: 'UI/UX & Front-end' },
+        { k: 'Scope', v: 'Marketing site · 3 pages' },
+        { k: 'Sector', v: 'Shipping & Logistics' },
+      ],
+      overviewStats: [
+        { n: '3', l: 'Pages designed and built' },
+        { n: '11', l: 'Homepage sections' },
+        { n: '100 lb', l: 'Quote range, one formula' },
+        { n: '0', l: 'Frameworks or build steps' },
+      ],
+      challenges: [
+        { n: '01', t: 'Pricing was invisible', d: 'Rates lived in a static table customers had to interpret themselves — a reliable drop-off point long before signup.' },
+        { n: '02', t: 'Tracking meant leaving', d: 'Parcels move via DHL, FedEx and UPS, so customers googled carrier sites instead of returning to Ari Logistics.' },
+        { n: '03', t: 'No sense of scale', d: 'Nothing communicated two international warehouses, customs brokerage, or the volume already moving through the lane.' },
+        { n: '04', t: 'Unusable on mobile', d: 'Most shoppers browse from a phone, but the old layout was a desktop page squeezed onto a small screen.' },
+      ],
+      palette: [
+        { name: 'Signal Blue', hex: '#007BFF' },
+        { name: 'Sky Accent', hex: '#3B9BFF' },
+        { name: 'Harbour', hex: '#0D2036' },
+        { name: 'Hull Navy', hex: '#070B14' },
+        { name: 'Deep Space', hex: '#05070D' },
+        { name: 'Mist Grey', hex: '#F8F9FA' },
+      ],
+      brandNotes: [
+        { t: 'Blue means action', d: 'Reserved for CTAs, live routes, active states and prices — never used as background decoration.' },
+        { t: 'Glass over gradients', d: 'Translucent panels with blur carry depth on dark sections instead of heavy gradient fills.' },
+        { t: 'One rounding scale', d: '18–24px radii across cards, buttons, inputs and frames keeps every surface part of the same family.' },
+      ],
+      formulaBits: [
+        { v: '$700', l: 'First pound' },
+        { v: '+$300', l: 'Each additional pound' },
+        { v: '15%', l: 'GCT applied on top' },
+        { v: '1–100', l: 'Pounds supported' },
+      ],
+      phones: [
+        { src: 'index.html', label: 'Homepage', note: 'Collapsed nav, stacked hero', dur: '7s' },
+        { src: 'Ari%20Logistics%20Rates.dc.html', label: 'Rate calculator', note: 'Full-width quote card', dur: '8.4s' },
+        { src: 'Ari%20Logistics%20Tracking.dc.html', label: 'Tracking', note: 'Single-field carrier lookup', dur: '7.7s' },
+      ],
+      motions: [
+        { t: 'Scroll reveal', d: 'An IntersectionObserver fades and lifts each block once, at 12% visibility — never replaying, never blocking content.', icon: mi('<path d="M12 5v14M5 12l7 7 7-7"/>') },
+        { t: 'Counting statistics', d: 'Delivery figures ease from zero on a cubic curve the first time the stats band enters view, then hold.', icon: mi('<path d="M3 3v18h18"/><path d="M7 15l4-4 3 3 5-6"/>') },
+        { t: 'Cursor parallax', d: 'Hero cards and the canvas globe shift on separate depth multipliers, building dimension from pointer movement alone.', icon: mi('<path d="M4 4l6 16 2-6 6-2z"/>') },
+        { t: 'Scroll parallax', d: 'The port photograph translates against its container as it passes, giving the band a cinematic drift.', icon: mi('<rect x="3" y="4" width="18" height="14" rx="2"/><path d="M3 14l5-4 4 3 4-4 5 5"/>') },
+        { t: 'Magnetic hovers', d: 'Cards lift six pixels into a blue glow, buttons rise two and deepen their shadow — one consistent physical language.', icon: mi('<path d="M6 4v7a6 6 0 0012 0V4"/><path d="M4 4h4M16 4h4"/>') },
+        { t: 'Travelling routes', d: 'Dashed SVG strokes animate along each lane on the hub map, so the network always reads as live.', icon: mi('<circle cx="5" cy="19" r="2"/><circle cx="19" cy="5" r="2"/><path d="M6.5 17.5C10 14 12 12 17.5 6.5"/>') },
+      ],
+      stack: ['HTML5', 'CSS3', 'JavaScript (ES6)', 'Canvas API', 'SVG animation', 'IntersectionObserver', 'Fluid responsive grids', 'Google Fonts', 'Static deployment', 'GitHub Pages'],
+      ctaHover: { transform: 'translateY(-2px)', boxShadow: '0 18px 44px rgba(0,123,255,.6)' },
+      linkHover: { color: '#fff' },
+      year: new Date().getFullYear(),
+    };
+  }
+
+  componentDidMount() {
+    this._seen = new WeakSet();
+    this._io = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); this._io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+
+    this.scan();
+    this._mo = new MutationObserver(() => this.scan());
+    this._mo.observe(this.root || document.body, { childList: true, subtree: true });
+    this._scanTimer = setInterval(() => this.scan(), 400);
+    this._safety = setTimeout(() => {
+      clearInterval(this._scanTimer);
+      if (this._mo) { this._mo.disconnect(); this._mo = null; }
+      this.scan();
+      this._safetyPass = setTimeout(() => {
+        (this.root || document).querySelectorAll('[data-cs]').forEach(el => {
+          if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('in');
+        });
+      }, 300);
+    }, 6000);
+
+    this._onResize = () => this.setState({ vw: window.innerWidth });
+    window.addEventListener('resize', this._onResize);
+  }
+
+  scan() {
+    (this.root || document).querySelectorAll('[data-cs]').forEach(el => {
+      if (this._seen.has(el)) return;
+      this._seen.add(el);
+      this._io.observe(el);
+    });
+  }
+
+  componentDidUpdate() { if (this._io) this.scan(); }
+
+  componentWillUnmount() {
+    if (this._io) this._io.disconnect();
+    if (this._mo) this._mo.disconnect();
+    clearInterval(this._scanTimer);
+    clearTimeout(this._safety);
+    clearTimeout(this._safetyPass);
+    if (this._onResize) window.removeEventListener('resize', this._onResize);
+  }
+}
+</script>
+</body>
+</html>
